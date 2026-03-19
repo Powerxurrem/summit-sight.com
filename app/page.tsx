@@ -4,7 +4,7 @@ export default function SummitSightPersonalSite() {
     "Backend Systems",
     "Production SaaS",
     "Vestaryn",
-  ];
+  ]; 
 
   const pillars = [
     {
