@@ -44,7 +44,8 @@ export default function SummitSightPersonalSite() {
         "Structured export and workflow pipelines",
         "Shipped as a real product, not just a prototype",
       ],
-      href: "#contact",
+      href: "https://soundscape.run",
+       external: true,
     },
   ];
 
