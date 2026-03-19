@@ -4,7 +4,7 @@ export default function SummitSightPersonalSite() {
     "Backend Systems",
     "Production SaaS",
     "Vestaryn",
-  ]; 
+  ];
 
   const pillars = [
     {
@@ -32,6 +32,7 @@ export default function SummitSightPersonalSite() {
         "Repository-aware workflows instead of isolated snippets",
         "Focused on making AI-generated code safer in real systems",
       ],
+      href: "/vestaryn",
     },
     {
       name: "Soundscape",
@@ -43,10 +44,12 @@ export default function SummitSightPersonalSite() {
         "Structured export and workflow pipelines",
         "Shipped as a real product, not just a prototype",
       ],
+      href: "#contact",
     },
   ];
 
   return (
+    
     <div className="min-h-screen bg-neutral-950 text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.12),transparent_30%),linear-gradient(to_bottom,rgba(255,255,255,0.02),rgba(255,255,255,0))]" />
 
@@ -72,6 +75,28 @@ export default function SummitSightPersonalSite() {
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/65 md:text-lg">
                 I build production SaaS systems, structured AI workflows, and tools that move beyond demos into practical use. Most recently, I’m building Vestaryn.
               </p>
+              <p className="mt-4 text-sm text-white/55">
+                Systems built for real workflows — not demos, not prototypes.
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#work"
+                  className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-white/90"
+                >
+                  View work
+                </a>
+                <a
+                  href="#contact"
+                  className="rounded-2xl border border-white/15 bg-white/[0.03] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.07]"
+                >
+                  Contact
+                </a>
+              </div>
+
+              <p className="mt-3 text-xs text-white/45">
+                Available for building production AI systems and backend platforms.
+              </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {badges.map((badge) => (
@@ -92,6 +117,9 @@ export default function SummitSightPersonalSite() {
                 <p className="mt-2 text-sm leading-6 text-white/60">
                   Building an AI development chamber where changes are proposed, verified, and only then applied.
                 </p>
+                <p className="mt-2 text-xs text-white/45">
+                  AI that proposes → verifies → then applies.
+                </p>
               </div>
               <div className="grid gap-2 text-sm text-white/70">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
@@ -101,6 +129,12 @@ export default function SummitSightPersonalSite() {
                   Structured execution over blind mutation
                 </div>
               </div>
+              <a
+                href="/vestaryn"
+                className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3 text-sm text-cyan-100/90 transition hover:bg-cyan-400/15"
+              >
+                Explore Vestaryn
+              </a>
             </div>
           </div>
         </header>
@@ -109,7 +143,7 @@ export default function SummitSightPersonalSite() {
           {pillars.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
+              className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/[0.08] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             >
               <h2 className="text-lg font-medium text-white/90">{pillar.title}</h2>
               <p className="mt-3 text-sm leading-6 text-white/60">{pillar.text}</p>
@@ -117,7 +151,10 @@ export default function SummitSightPersonalSite() {
           ))}
         </section>
 
-        <section className="mt-8 rounded-[32px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8">
+        <section
+          id="work"
+          className="mt-8 rounded-[32px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8"
+        >
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-white/40">Selected work</p>
@@ -132,9 +169,10 @@ export default function SummitSightPersonalSite() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {projects.map((project) => (
-              <div
+              <a
                 key={project.name}
-                className="rounded-[28px] border border-white/10 bg-black/30 p-6"
+                href={project.href}
+                className="rounded-[28px] border border-white/10 bg-black/30 p-6 transition hover:-translate-y-1 hover:bg-white/[0.05] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
               >
                 <p className="text-sm uppercase tracking-[0.18em] text-white/35">{project.subtitle}</p>
                 <h3 className="mt-2 text-2xl font-semibold text-white/92">{project.name}</h3>
@@ -149,7 +187,7 @@ export default function SummitSightPersonalSite() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>
@@ -164,13 +202,13 @@ export default function SummitSightPersonalSite() {
               I like solving problems where systems need to stay understandable and dependable. That includes backend architecture, APIs, workflow orchestration, and AI integrations that must behave consistently under pressure.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5">
+              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:bg-white/[0.05]">
                 <p className="text-sm font-medium text-white/88">Backend systems</p>
                 <p className="mt-2 text-sm leading-6 text-white/58">
                   APIs, webhook flows, structured export pipelines, entitlement logic, and production reliability.
                 </p>
               </div>
-              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5">
+              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:bg-white/[0.05]">
                 <p className="text-sm font-medium text-white/88">AI integration</p>
                 <p className="mt-2 text-sm leading-6 text-white/58">
                   LLM workflows, controlled execution, validation loops, and system-level thinking around generated output.
@@ -179,19 +217,40 @@ export default function SummitSightPersonalSite() {
             </div>
           </div>
 
-          <div className="rounded-[32px] border border-white/10 bg-black/30 p-6 backdrop-blur-xl md:p-8">
+          <div
+            id="contact"
+            className="rounded-[32px] border border-white/10 bg-black/30 p-6 backdrop-blur-xl md:p-8"
+          >
             <p className="text-xs uppercase tracking-[0.24em] text-white/40">Contact</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white/92">Let’s connect.</h2>
             <p className="mt-4 text-sm leading-7 text-white/60">
               Especially if you’re working on applied AI, backend systems, SaaS products, or opportunities where reliability and practical execution matter.
             </p>
             <div className="mt-6 space-y-3 text-sm text-white/75">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <a
+                href="mailto:summit-sight@hotmail.com"
+                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
+              >
                 summit-sight@hotmail.com
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                LinkedIn / GitHub / Vestaryn
-              </div>
+              </a>
+              <a
+                href="https://vestaryn.dev"
+                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
+              >
+                vestaryn.dev
+              </a>
+              <a
+                href="https://github.com/Powerxurrem"
+                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/romanokreugel/"
+                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
+              >
+                LinkedIn
+              </a>
             </div>
           </div>
         </section>
