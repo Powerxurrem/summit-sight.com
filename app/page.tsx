@@ -3,21 +3,12 @@ import { BOOK_PRICE, BOOK_PURCHASE_URL, BOOK_STATUS } from "./book-config";
 
 const archive = [
   {
-    name: "Oddloop",
-    kind: "A tiny browser arcade",
+    name: "Mazeloop",
+    kind: "Puzzle · Maze",
     description:
-      "A growing cabinet of small games, strange mechanics, daily distractions, and reasons to try once more. Driftline lives here now.",
-    href: "/oddloop",
-    linkLabel: "Open Oddloop",
-    internal: true,
-  },
-  {
-    name: "Emberbound",
-    kind: "Mini turn-based RPG",
-    description:
-      "Three travellers, one mossback wyrm, and a compact old-school command menu. A complete little RPG battle living inside the browser.",
-    href: "/emberbound",
-    linkLabel: "Play Emberbound",
+      "Twenty-four hand-tuned mazes that grow from a simple key-and-exit puzzle into blink pads, power switches, and patrols that walk the halls with you.",
+    href: "/mazeloop",
+    linkLabel: "Play Mazeloop",
     internal: true,
   },
   {
@@ -33,7 +24,7 @@ const archive = [
     name: "Driftline",
     kind: "Endless tunnel game",
     description:
-      "A ball, a rotating tunnel, and an endless line of obstacles. Hold left or right, find the gap, and try not to lose the flow.",
+      "A ball, a rotating tunnel, and an endless line of obstacles — now across six modes, eighteen levels, and a shard economy to unlock them.",
     href: "/driftline",
     linkLabel: "Play Driftline",
     internal: true,

@@ -1,10 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Haptics from "expo-haptics";
-import { router } from "expo-router";
+"use client";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { PanResponder, Pressable, StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import Svg, { Circle, G, Line, Rect } from "react-native-svg";
+import styles from "./mazeloop.module.css";
 
 type Point = { x: number; y: number };
 type Cell = { walls: [boolean, boolean, boolean, boolean] };
@@ -210,9 +207,9 @@ const createMaze = (level: number): Maze => {
   return finishMaze({ size, cells, key, exit, par: fromStart[keyIndex] + fromKey[exitIndex], pads: null, gate: null, switch: null, sentinels: [] }, level);
 };
 
-export default function MazeloopScreen() {
-  const { width, height } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
+export default function MazeloopGame() {
+  const boardWrapRef = useRef<HTMLDivElement>(null);
+  const [boardSize, setBoardSize] = useState(0);
   const [level, setLevel] = useState(1);
   const [unlocked, setUnlocked] = useState(1);
   const [player, setPlayer] = useState<Point>({ x: 0, y: 0 });
@@ -237,32 +234,48 @@ export default function MazeloopScreen() {
   const sentinelAliveRef = useRef<boolean[]>([]);
   const sentinelActiveRef = useRef<boolean[]>([]);
   const crashLockRef = useRef(false);
+  const dragStart = useRef({ x: 0, y: 0 });
   const dragAnchor = useRef({ x: 0, y: 0 });
   const lastDragMove = useRef(0);
   const maze = useMemo(() => createMaze(level), [level]);
-  const boardSize = Math.min(width - 28, height - insets.top - insets.bottom - 245, 440);
   const tile = boardSize / maze.size;
   const sentinelPositions = maze.sentinels.map((route, index) => route[sentinelSteps[index] ?? 0]);
   const sentinelNext = maze.sentinels.map((route, index) => sentinelsMoveNext ? route[((sentinelSteps[index] ?? 0) + 1) % route.length] : route[sentinelSteps[index] ?? 0]);
 
   useEffect(() => {
-    AsyncStorage.getItem(SAVE_KEY).then((value) => {
-      const saved = Math.max(1, Number(value ?? 1));
+    const restore = window.setTimeout(() => {
+      const saved = Math.max(1, Number(localStorage.getItem(SAVE_KEY) ?? 1));
       unlockedRef.current = saved;
       setUnlocked(saved);
-    });
+    }, 0);
+    return () => window.clearTimeout(restore);
   }, []);
 
   useEffect(() => {
-    const steps = maze.sentinels.map((route, index) => Math.min(route.length - 1, Math.floor(route.length * (index + 1) / 3)));
-    sentinelStepsRef.current = steps;
-    sentinelMoveTurnRef.current = false;
-    sentinelAliveRef.current = maze.sentinels.map(() => true);
-    sentinelActiveRef.current = maze.sentinels.map(() => !maze.pads);
-    setSentinelSteps(steps);
-    setSentinelsMoveNext(false);
-    setSentinelAlive(maze.sentinels.map(() => true));
-    setSentinelActive(maze.sentinels.map(() => !maze.pads));
+    const node = boardWrapRef.current;
+    if (!node) return;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      setBoardSize(Math.round(Math.min(entry.contentRect.width, entry.contentRect.height)));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const restore = window.setTimeout(() => {
+      const steps = maze.sentinels.map((route, index) => Math.min(route.length - 1, Math.floor(route.length * (index + 1) / 3)));
+      sentinelStepsRef.current = steps;
+      sentinelMoveTurnRef.current = false;
+      sentinelAliveRef.current = maze.sentinels.map(() => true);
+      sentinelActiveRef.current = maze.sentinels.map(() => !maze.pads);
+      setSentinelSteps(steps);
+      setSentinelsMoveNext(false);
+      setSentinelAlive(maze.sentinels.map(() => true));
+      setSentinelActive(maze.sentinels.map(() => !maze.pads));
+    }, 0);
+    return () => window.clearTimeout(restore);
   }, [maze]);
 
   const reset = useCallback((nextLevel = level) => {
@@ -310,7 +323,6 @@ export default function MazeloopScreen() {
       setSentinelAlive(nextAlive);
       setTakedownFlash(true);
       setTimeout(() => setTakedownFlash(false), 850);
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }
     const shouldMove = sentinelMoveTurnRef.current;
     sentinelMoveTurnRef.current = !shouldMove;
@@ -328,7 +340,6 @@ export default function MazeloopScreen() {
       reset(level);
       crashLockRef.current = true;
       setTimeout(() => { crashLockRef.current = false; }, 180);
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       return true;
     }
     return false;
@@ -342,7 +353,6 @@ export default function MazeloopScreen() {
     setSentinelActive(nextActive);
     setReleaseFlash(true);
     setTimeout(() => setReleaseFlash(false), 950);
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
   }, [maze.sentinels]);
 
   const move = useCallback((dx: number, dy: number) => {
@@ -351,15 +361,13 @@ export default function MazeloopScreen() {
     const currentPlayer = playerRef.current;
     const cell = maze.cells[indexOf(currentPlayer.x, currentPlayer.y, maze.size)];
     if (cell.walls[directionIndex]) {
-      if (advanceSentinels(currentPlayer, currentPlayer)) return;
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+      advanceSentinels(currentPlayer, currentPlayer);
       return;
     }
     const stepped = { x: currentPlayer.x + dx, y: currentPlayer.y + dy };
     const crossesGate = maze.gate && ((samePoint(currentPlayer, maze.gate.a) && samePoint(stepped, maze.gate.b)) || (samePoint(currentPlayer, maze.gate.b) && samePoint(stepped, maze.gate.a)));
     if (crossesGate && !powerRef.current) {
-      if (advanceSentinels(currentPlayer, currentPlayer)) return;
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      advanceSentinels(currentPlayer, currentPlayer);
       return;
     }
     let next = stepped;
@@ -386,152 +394,165 @@ export default function MazeloopScreen() {
     setMoves(nextMoves);
     if (blinked) releasePatrol(0);
     if (switchedOn && maze.sentinels.length > 1) releasePatrol(1);
-    if (switchedOn) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    else if (blinked) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    else Haptics.selectionAsync();
     if (collected && samePoint(next, maze.exit)) {
       const nextUnlocked = Math.max(unlockedRef.current, Math.min(24, level + 1));
       unlockedRef.current = nextUnlocked;
       completeRef.current = true;
       setUnlocked(nextUnlocked);
-      AsyncStorage.setItem(SAVE_KEY, String(nextUnlocked));
+      localStorage.setItem(SAVE_KEY, String(nextUnlocked));
       setComplete(true);
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }
   }, [advanceSentinels, level, maze, releasePatrol]);
 
-  const responder = useMemo(() => PanResponder.create({
-    onStartShouldSetPanResponder: () => !completeRef.current,
-    onMoveShouldSetPanResponder: () => !completeRef.current,
-    onPanResponderGrant: () => {
-      dragAnchor.current = { x: 0, y: 0 };
-      lastDragMove.current = 0;
-    },
-    onPanResponderMove: (_, gesture) => {
-      const now = Date.now();
-      if (now - lastDragMove.current < 115) return;
-      const threshold = Math.max(38, tile * 0.82);
-      const deltaX = gesture.dx - dragAnchor.current.x;
-      const deltaY = gesture.dy - dragAnchor.current.y;
-      if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < threshold) return;
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        const direction = deltaX > 0 ? 1 : -1;
-        move(direction, 0);
-      } else {
-        const direction = deltaY > 0 ? 1 : -1;
-        move(0, direction);
-      }
-      dragAnchor.current = { x: gesture.dx, y: gesture.dy };
-      lastDragMove.current = now;
-    },
-  }), [move, tile]);
+  const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (completeRef.current) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragAnchor.current = { x: 0, y: 0 };
+    lastDragMove.current = 0;
+  }, []);
+
+  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (completeRef.current) return;
+    const now = Date.now();
+    if (now - lastDragMove.current < 115) return;
+    const threshold = Math.max(38, tile * 0.82);
+    const gestureX = event.clientX - dragStart.current.x;
+    const gestureY = event.clientY - dragStart.current.y;
+    const deltaX = gestureX - dragAnchor.current.x;
+    const deltaY = gestureY - dragAnchor.current.y;
+    if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < threshold) return;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      move(deltaX > 0 ? 1 : -1, 0);
+    } else {
+      move(0, deltaY > 0 ? 1 : -1);
+    }
+    dragAnchor.current = { x: gestureX, y: gestureY };
+    lastDragMove.current = now;
+  }, [move, tile]);
+
+  useEffect(() => {
+    const keyDown = (event: KeyboardEvent) => {
+      const moves: Record<string, [number, number]> = {
+        ArrowLeft: [-1, 0], KeyA: [-1, 0],
+        ArrowRight: [1, 0], KeyD: [1, 0],
+        ArrowUp: [0, -1], KeyW: [0, -1],
+        ArrowDown: [0, 1], KeyS: [0, 1],
+      };
+      const direction = moves[event.code];
+      if (!direction) return;
+      event.preventDefault();
+      move(direction[0], direction[1]);
+    };
+    window.addEventListener("keydown", keyDown);
+    return () => window.removeEventListener("keydown", keyDown);
+  }, [move]);
 
   return (
-    <SafeAreaView style={styles.safe} edges={["top", "left", "right", "bottom"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.replace("/maze-hub")}><Text style={styles.back}>{"< PUZZLE WING"}</Text></Pressable>
-        <Text style={styles.logo}>MAZELOOP</Text>
-        <Text style={styles.levelTop}>LEVEL {level}/24</Text>
-      </View>
+    <section className={styles.gameShell}>
+      <div className={styles.titleRow}>
+        <div>
+          <p className={styles.eyebrow}>Level {level} of 24 · {maze.sentinels.length ? "Patrol Maze" : maze.gate ? "Circuit Maze" : maze.pads ? "Blink Maze" : "Maze"}</p>
+          <h1>Mazeloop</h1>
+        </div>
+        <p>Find the key, reach the exit. Later mazes add blink pads, power switches, and patrols that walk the halls with you.</p>
+      </div>
 
-      <View style={styles.content}>
-        <View style={styles.titleRow}>
-          <View><Text style={styles.kicker}>{maze.sentinels.length ? "THE PUZZLE WING / PATROL MAZE" : maze.gate ? "THE PUZZLE WING / CIRCUIT MAZE" : maze.pads ? "THE PUZZLE WING / BLINK MAZE" : "THE PUZZLE WING"}</Text><Text style={styles.title}>Find the way out.</Text></View>
-          <View style={styles.metrics}><Text style={styles.metricLabel}>MOVES</Text><Text style={styles.metric}>{moves}</Text><Text style={styles.par}>PAR {maze.par}</Text></View>
-        </View>
+      <div className={styles.scoreboard} aria-live="polite">
+        <div><span>Moves</span><strong>{moves}</strong></div>
+        <div><span>Par</span><strong>{maze.par}</strong></div>
+        <div><span>Unlocked</span><strong>{unlocked}/24</strong></div>
+      </div>
 
-        <View style={[styles.board, { width: boardSize, height: boardSize }]} {...responder.panHandlers}>
-          <Svg width={boardSize} height={boardSize}>
-            <Rect width={boardSize} height={boardSize} fill="#121d18" />
-            <Rect x={maze.exit.x * tile + tile * 0.19} y={maze.exit.y * tile + tile * 0.19} width={tile * 0.62} height={tile * 0.62} rx={tile * 0.12} fill={hasKey ? "#5f9f78" : "#38473e"} stroke={hasKey ? "#a3dab0" : "#68756d"} strokeWidth={2} />
-            {!hasKey && <Rect x={maze.key.x * tile + tile * 0.34} y={maze.key.y * tile + tile * 0.34} width={tile * 0.32} height={tile * 0.32} fill="#e2b767" transform={`rotate(45 ${maze.key.x * tile + tile / 2} ${maze.key.y * tile + tile / 2})`} />}
-            {maze.pads?.map((pad, index) => <G key={`pad-${index}`}>
-              <Circle cx={pad.x * tile + tile / 2} cy={pad.y * tile + tile / 2} r={tile * 0.3} fill={index === 0 ? "#397c83" : "#765b91"} fillOpacity={0.28} stroke={index === 0 ? "#78c7ca" : "#bb91d2"} strokeWidth={2} />
-              <Circle cx={pad.x * tile + tile / 2} cy={pad.y * tile + tile / 2} r={tile * 0.12} fill={index === 0 ? "#91e0df" : "#d2a9e4"} />
-            </G>)}
-            {maze.switch && <G>
-              <Rect x={maze.switch.x * tile + tile * 0.24} y={maze.switch.y * tile + tile * 0.24} width={tile * 0.52} height={tile * 0.52} rx={tile * 0.12} fill={powerOn ? "#4f9369" : "#a8743f"} fillOpacity={0.42} stroke={powerOn ? "#9bdaa9" : "#efb45f"} strokeWidth={2} />
-              <Circle cx={maze.switch.x * tile + tile / 2} cy={maze.switch.y * tile + tile / 2} r={tile * 0.09} fill={powerOn ? "#b9efbf" : "#ffd17b"} />
-            </G>}
-            {maze.gate && (() => {
-              const vertical = maze.gate.a.x !== maze.gate.b.x;
-              const boundaryX = Math.max(maze.gate.a.x, maze.gate.b.x) * tile;
-              const boundaryY = Math.max(maze.gate.a.y, maze.gate.b.y) * tile;
-              return vertical
-                ? <Line x1={boundaryX} y1={maze.gate.a.y * tile + tile * 0.16} x2={boundaryX} y2={maze.gate.a.y * tile + tile * 0.84} stroke={powerOn ? "#597068" : "#75dce0"} strokeOpacity={powerOn ? 0.35 : 1} strokeWidth={powerOn ? 2 : 5} strokeDasharray={powerOn ? undefined : "5 3"} />
-                : <Line x1={maze.gate.a.x * tile + tile * 0.16} y1={boundaryY} x2={maze.gate.a.x * tile + tile * 0.84} y2={boundaryY} stroke={powerOn ? "#597068" : "#75dce0"} strokeOpacity={powerOn ? 0.35 : 1} strokeWidth={powerOn ? 2 : 5} strokeDasharray={powerOn ? undefined : "5 3"} />;
-            })()}
-            {sentinelNext.map((sentinel, index) => sentinelAlive[index] && sentinelActive[index] && <Circle key={`next-${index}`} cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.25} fill="#bd4e48" fillOpacity={0.12} stroke="#dc655b" strokeOpacity={0.62} strokeWidth={1.5} />)}
-            {sentinelPositions.map((sentinel, index) => sentinelAlive[index] && <G key={`sentinel-${index}`}>
-              {!sentinelActive[index] && <Circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.3} fill="#465049" fillOpacity={0.3} stroke="#89938c" strokeWidth={2} strokeDasharray="4 3" />}
-              <Circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.2} fill={sentinelActive[index] ? "#a83f3b" : "#555e58"} stroke={sentinelActive[index] ? "#ff9a82" : "#a8b0aa"} strokeWidth={2.5} />
-              <Circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.06} fill={sentinelActive[index] ? "#ffe0c7" : "#d0d5d0"} />
-            </G>)}
-            {maze.cells.map((cell, index) => {
-              const x = index % maze.size * tile;
-              const y = Math.floor(index / maze.size) * tile;
-              return <G key={index}>{cell.walls[0] && <Line x1={x} y1={y} x2={x + tile} y2={y} stroke="#607067" strokeWidth={2.2} />}{cell.walls[1] && <Line x1={x + tile} y1={y} x2={x + tile} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}{cell.walls[2] && <Line x1={x} y1={y + tile} x2={x + tile} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}{cell.walls[3] && <Line x1={x} y1={y} x2={x} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}</G>;
-            })}
-            <Circle cx={player.x * tile + tile / 2} cy={player.y * tile + tile / 2} r={tile * 0.2} fill="#e7c477" stroke="#fff0bf" strokeWidth={3} />
-          </Svg>
-          {takedownFlash && <View pointerEvents="none" style={styles.takedown}><Text style={styles.takedownText}>PATROL DISABLED</Text></View>}
-          {releaseFlash && <View pointerEvents="none" style={styles.takedown}><Text style={[styles.takedownText, styles.releaseText]}>PATROL RELEASED</Text></View>}
-          {complete && <View style={styles.complete}>
-            <Text style={styles.completeKicker}>{moves <= maze.par ? "PAR CLEARED" : `${moves - maze.par} OVER PAR`}</Text>
-            <Text style={styles.completeTitle}>Way found.</Text>
-            <Pressable style={styles.nextButton} onPress={() => reset(Math.min(24, level + 1))}><Text style={styles.nextText}>{level < 24 ? "NEXT MAZE" : "PLAY AGAIN"}</Text></Pressable>
-          </View>}
-        </View>
+      <div className={styles.gameFrame}>
+        <div className={styles.boardWrap} ref={boardWrapRef}>
+          {boardSize > 0 && (
+            <div
+              className={styles.board}
+              style={{ width: boardSize, height: boardSize }}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+            >
+              <svg width={boardSize} height={boardSize}>
+                <rect width={boardSize} height={boardSize} fill="#121d18" />
+                <rect x={maze.exit.x * tile + tile * 0.19} y={maze.exit.y * tile + tile * 0.19} width={tile * 0.62} height={tile * 0.62} rx={tile * 0.12} fill={hasKey ? "#5f9f78" : "#38473e"} stroke={hasKey ? "#a3dab0" : "#68756d"} strokeWidth={2} />
+                {!hasKey && <rect x={maze.key.x * tile + tile * 0.34} y={maze.key.y * tile + tile * 0.34} width={tile * 0.32} height={tile * 0.32} fill="#e2b767" transform={`rotate(45 ${maze.key.x * tile + tile / 2} ${maze.key.y * tile + tile / 2})`} />}
+                {maze.pads?.map((pad, index) => (
+                  <g key={`pad-${index}`}>
+                    <circle cx={pad.x * tile + tile / 2} cy={pad.y * tile + tile / 2} r={tile * 0.3} fill={index === 0 ? "#397c83" : "#765b91"} fillOpacity={0.28} stroke={index === 0 ? "#78c7ca" : "#bb91d2"} strokeWidth={2} />
+                    <circle cx={pad.x * tile + tile / 2} cy={pad.y * tile + tile / 2} r={tile * 0.12} fill={index === 0 ? "#91e0df" : "#d2a9e4"} />
+                  </g>
+                ))}
+                {maze.switch && (
+                  <g>
+                    <rect x={maze.switch.x * tile + tile * 0.24} y={maze.switch.y * tile + tile * 0.24} width={tile * 0.52} height={tile * 0.52} rx={tile * 0.12} fill={powerOn ? "#4f9369" : "#a8743f"} fillOpacity={0.42} stroke={powerOn ? "#9bdaa9" : "#efb45f"} strokeWidth={2} />
+                    <circle cx={maze.switch.x * tile + tile / 2} cy={maze.switch.y * tile + tile / 2} r={tile * 0.09} fill={powerOn ? "#b9efbf" : "#ffd17b"} />
+                  </g>
+                )}
+                {maze.gate && (() => {
+                  const vertical = maze.gate.a.x !== maze.gate.b.x;
+                  const boundaryX = Math.max(maze.gate.a.x, maze.gate.b.x) * tile;
+                  const boundaryY = Math.max(maze.gate.a.y, maze.gate.b.y) * tile;
+                  return vertical
+                    ? <line x1={boundaryX} y1={maze.gate.a.y * tile + tile * 0.16} x2={boundaryX} y2={maze.gate.a.y * tile + tile * 0.84} stroke={powerOn ? "#597068" : "#75dce0"} strokeOpacity={powerOn ? 0.35 : 1} strokeWidth={powerOn ? 2 : 5} strokeDasharray={powerOn ? undefined : "5 3"} />
+                    : <line x1={maze.gate.a.x * tile + tile * 0.16} y1={boundaryY} x2={maze.gate.a.x * tile + tile * 0.84} y2={boundaryY} stroke={powerOn ? "#597068" : "#75dce0"} strokeOpacity={powerOn ? 0.35 : 1} strokeWidth={powerOn ? 2 : 5} strokeDasharray={powerOn ? undefined : "5 3"} />;
+                })()}
+                {sentinelNext.map((sentinel, index) => sentinelAlive[index] && sentinelActive[index] && <circle key={`next-${index}`} cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.25} fill="#bd4e48" fillOpacity={0.12} stroke="#dc655b" strokeOpacity={0.62} strokeWidth={1.5} />)}
+                {sentinelPositions.map((sentinel, index) => sentinelAlive[index] && (
+                  <g key={`sentinel-${index}`}>
+                    {!sentinelActive[index] && <circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.3} fill="#465049" fillOpacity={0.3} stroke="#89938c" strokeWidth={2} strokeDasharray="4 3" />}
+                    <circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.2} fill={sentinelActive[index] ? "#a83f3b" : "#555e58"} stroke={sentinelActive[index] ? "#ff9a82" : "#a8b0aa"} strokeWidth={2.5} />
+                    <circle cx={sentinel.x * tile + tile / 2} cy={sentinel.y * tile + tile / 2} r={tile * 0.06} fill={sentinelActive[index] ? "#ffe0c7" : "#d0d5d0"} />
+                  </g>
+                ))}
+                {maze.cells.map((cell, index) => {
+                  const x = (index % maze.size) * tile;
+                  const y = Math.floor(index / maze.size) * tile;
+                  return (
+                    <g key={index}>
+                      {cell.walls[0] && <line x1={x} y1={y} x2={x + tile} y2={y} stroke="#607067" strokeWidth={2.2} />}
+                      {cell.walls[1] && <line x1={x + tile} y1={y} x2={x + tile} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}
+                      {cell.walls[2] && <line x1={x} y1={y + tile} x2={x + tile} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}
+                      {cell.walls[3] && <line x1={x} y1={y} x2={x} y2={y + tile} stroke="#607067" strokeWidth={2.2} />}
+                    </g>
+                  );
+                })}
+                <circle cx={player.x * tile + tile / 2} cy={player.y * tile + tile / 2} r={tile * 0.2} fill="#e7c477" stroke="#fff0bf" strokeWidth={3} />
+              </svg>
 
-        <View style={styles.legend}><View style={styles.legendItem}><View style={styles.keyMark} /><Text style={styles.legendText}>KEY</Text></View><View style={styles.legendItem}><View style={[styles.exitMark, hasKey && styles.exitOpen]} /><Text style={styles.legendText}>EXIT</Text></View>{maze.pads && <View style={styles.legendItem}><View style={styles.blinkMark} /><Text style={styles.legendText}>BLINK</Text></View>}{maze.gate && <View style={styles.legendItem}><View style={[styles.switchMark, powerOn && styles.switchOn]} /><Text style={styles.legendText}>{powerOn ? "POWER OFF" : "SWITCH"}</Text></View>}{maze.sentinels.length > 0 && <View style={styles.legendItem}><View style={[styles.sentinelMark, !sentinelActive.some(Boolean) && styles.sentinelCaged]} /><Text style={styles.legendText}>{!sentinelActive.some(Boolean) ? "PATROL CAGED" : sentinelsMoveNext ? "MOVES NEXT" : "RESTS NEXT"}</Text></View>}<Text style={styles.swipe}>DRAG</Text></View>
-        {!complete && <View style={styles.levelControls}>
-          <Pressable disabled={level === 1} onPress={() => reset(level - 1)} style={[styles.levelButton, level === 1 && styles.disabled]}><Text style={styles.levelButtonText}>PREVIOUS</Text></Pressable>
-          <Text style={styles.unlocked}>{unlocked}/24 UNLOCKED</Text>
-          <Pressable disabled={level >= unlocked} onPress={() => reset(level + 1)} style={[styles.levelButton, level >= unlocked && styles.disabled]}><Text style={styles.levelButtonText}>NEXT</Text></Pressable>
-        </View>}
-      </View>
-    </SafeAreaView>
+              {takedownFlash && <div className={styles.takedown}><span>PATROL DISABLED</span></div>}
+              {releaseFlash && <div className={styles.takedown}><span className={styles.releaseText}>PATROL RELEASED</span></div>}
+              {complete && (
+                <div className={styles.complete}>
+                  <p className={styles.completeKicker}>{moves <= maze.par ? "PAR CLEARED" : `${moves - maze.par} OVER PAR`}</p>
+                  <p className={styles.completeTitle}>Way found.</p>
+                  <button type="button" className={styles.nextButton} onClick={() => reset(Math.min(24, level + 1))}>
+                    {level < 24 ? "Next maze" : "Play again"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className={styles.legend}>
+          <div className={styles.legendItem}><span className={styles.keyMark} /><span>Key</span></div>
+          <div className={styles.legendItem}><span className={hasKey ? styles.exitOpen : styles.exitMark} /><span>Exit</span></div>
+          {maze.pads && <div className={styles.legendItem}><span className={styles.blinkMark} /><span>Blink</span></div>}
+          {maze.gate && <div className={styles.legendItem}><span className={powerOn ? styles.switchOn : styles.switchMark} /><span>{powerOn ? "Power off" : "Switch"}</span></div>}
+          {maze.sentinels.length > 0 && <div className={styles.legendItem}><span className={!sentinelActive.some(Boolean) ? styles.sentinelCaged : styles.sentinelMark} /><span>{!sentinelActive.some(Boolean) ? "Patrol caged" : sentinelsMoveNext ? "Moves next" : "Rests next"}</span></div>}
+          <span className={styles.swipe}>Drag or arrow keys</span>
+        </div>
+
+        {!complete && (
+          <div className={styles.levelControls}>
+            <button type="button" disabled={level === 1} className={styles.levelButton} onClick={() => reset(level - 1)}>Previous</button>
+            <span className={styles.unlockedText}>{unlocked}/24 unlocked</span>
+            <button type="button" disabled={level >= unlocked} className={styles.levelButton} onClick={() => reset(level + 1)}>Next</button>
+          </div>
+        )}
+      </div>
+      <p className={styles.hint}>Drag on the board, or steer with arrow keys / WASD.</p>
+    </section>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#101714" },
-  header: { height: 54, paddingHorizontal: 14, flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#29362f" },
-  back: { color: "#909a92", fontSize: 9, fontWeight: "800", letterSpacing: 0.7 },
-  logo: { color: "#f0eadb", fontSize: 10, fontWeight: "900", letterSpacing: 1.5 },
-  levelTop: { color: "#7f8c83", fontSize: 8, fontWeight: "900", letterSpacing: 0.8 },
-  content: { flex: 1, alignItems: "center", paddingHorizontal: 14, paddingTop: 18 },
-  titleRow: { width: "100%", flexDirection: "row", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 18 },
-  kicker: { color: "#d4774c", fontSize: 8, fontWeight: "900", letterSpacing: 1.1 },
-  title: { marginTop: 5, color: "#f0eadb", fontFamily: "serif", fontSize: 31, letterSpacing: -1.2 },
-  metrics: { alignItems: "flex-end" },
-  metricLabel: { color: "#718077", fontSize: 7, fontWeight: "900", letterSpacing: 0.8 },
-  metric: { color: "#f0eadb", fontFamily: "serif", fontSize: 27 },
-  par: { color: "#718077", fontSize: 7, fontWeight: "800", letterSpacing: 0.6 },
-  board: { position: "relative", overflow: "hidden", borderWidth: 1, borderColor: "#3a4941", borderRadius: 17, backgroundColor: "#121d18" },
-  complete: { position: "absolute", inset: 0, alignItems: "center", justifyContent: "center", backgroundColor: "rgba(10,17,14,.83)" },
-  takedown: { position: "absolute", top: 12, left: 0, right: 0, alignItems: "center" },
-  takedownText: { paddingHorizontal: 12, paddingVertical: 7, overflow: "hidden", color: "#ffe1c3", fontSize: 8, fontWeight: "900", letterSpacing: 0.9, borderWidth: 1, borderColor: "#cb7158", borderRadius: 16, backgroundColor: "rgba(111,48,38,.9)" },
-  releaseText: { color: "#ffe1d8", borderColor: "#e06455", backgroundColor: "rgba(137,43,38,.94)" },
-  completeKicker: { color: "#d6ad65", fontSize: 8, fontWeight: "900", letterSpacing: 1 },
-  completeTitle: { marginTop: 7, color: "#f0eadb", fontFamily: "serif", fontSize: 37 },
-  nextButton: { marginTop: 17, paddingHorizontal: 16, paddingVertical: 11, borderRadius: 21, backgroundColor: "#eee3cf" },
-  nextText: { color: "#152019", fontSize: 9, fontWeight: "900", letterSpacing: 0.8 },
-  legend: { width: "100%", marginTop: 15, flexDirection: "row", alignItems: "center", gap: 12 },
-  legendItem: { flexDirection: "row", alignItems: "center", gap: 6 },
-  keyMark: { width: 9, height: 9, transform: [{ rotate: "45deg" }], backgroundColor: "#e2b767" },
-  blinkMark: { width: 11, height: 11, borderWidth: 2, borderColor: "#8ed6d5", borderRadius: 6, backgroundColor: "#73598a" },
-  switchMark: { width: 11, height: 11, borderWidth: 2, borderColor: "#efb45f", borderRadius: 3, backgroundColor: "#79522f" },
-  switchOn: { borderColor: "#9bdaa9", backgroundColor: "#4f9369" },
-  sentinelMark: { width: 11, height: 11, borderWidth: 2, borderColor: "#ff9a82", borderRadius: 6, backgroundColor: "#a83f3b" },
-  sentinelCaged: { borderColor: "#a8b0aa", backgroundColor: "#555e58" },
-  exitMark: { width: 11, height: 11, borderWidth: 1, borderColor: "#68756d", borderRadius: 2, backgroundColor: "#38473e" },
-  exitOpen: { borderColor: "#a3dab0", backgroundColor: "#5f9f78" },
-  legendText: { color: "#849087", fontSize: 7, fontWeight: "900", letterSpacing: 0.5 },
-  swipe: { marginLeft: "auto", color: "#68756d", fontSize: 7, fontWeight: "800", letterSpacing: 0.5 },
-  levelControls: { width: "100%", marginTop: "auto", paddingBottom: 9, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  levelButton: { paddingHorizontal: 13, paddingVertical: 10, borderWidth: 1, borderColor: "#46544c", borderRadius: 18 },
-  disabled: { opacity: 0.25 },
-  levelButtonText: { color: "#b2bab3", fontSize: 8, fontWeight: "900", letterSpacing: 0.6 },
-  unlocked: { color: "#6d7971", fontSize: 8, fontWeight: "800", letterSpacing: 0.6 },
-});

@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./oddloop.module.css";
 
-type Records = { driftline: number; peakStack: number; tinyDelve: number };
+type Records = { driftline: number; peakStack: number; tinyDelve: number; mazeloop: number };
 
 const games = [
   {
     name: "Driftline",
     type: "Arcade · Endless",
-    description: "Hold the curve. Find the opening. Lose all sense of up.",
+    description: "Six ways to lose the line, from a simple orbit to full corner-hopping.",
     href: "/driftline",
     className: "drift",
     record: "driftline" as const,
@@ -35,18 +35,18 @@ const games = [
     recordLabel: "floor",
   },
   {
-    name: "Emberbound",
-    type: "RPG · Turn based",
-    description: "Three travellers and a mossback wyrm on the old road.",
-    href: "/emberbound",
-    className: "ember",
-    record: null,
-    recordLabel: "",
+    name: "Mazeloop",
+    type: "Puzzle · Maze",
+    description: "Find the key, dodge the patrol, and blink through the walls across 24 mazes.",
+    href: "/mazeloop",
+    className: "maze",
+    record: "mazeloop" as const,
+    recordLabel: "unlocked",
   },
 ];
 
 export default function OddloopHub() {
-  const [records, setRecords] = useState<Records>({ driftline: 0, peakStack: 0, tinyDelve: 1 });
+  const [records, setRecords] = useState<Records>({ driftline: 0, peakStack: 0, tinyDelve: 1, mazeloop: 1 });
   const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ export default function OddloopHub() {
         driftline: Number(localStorage.getItem("driftline-best") ?? 0),
         peakStack: Number(localStorage.getItem("peak-stack-best") ?? 0),
         tinyDelve: Number(localStorage.getItem("tiny-delve-best") ?? 1),
+        mazeloop: Number(localStorage.getItem("mazeloop-unlocked") ?? 1),
       });
     }, 0);
     return () => window.clearTimeout(restore);
@@ -101,6 +102,7 @@ export default function OddloopHub() {
           <p><span>Driftline</span><strong>{records.driftline}</strong><small>gates</small></p>
           <p><span>Peak Stack</span><strong>{records.peakStack}</strong><small>points</small></p>
           <p><span>Tiny Delve</span><strong>{records.tinyDelve}</strong><small>deepest floor</small></p>
+          <p><span>Mazeloop</span><strong>{records.mazeloop}</strong><small>mazes unlocked</small></p>
         </div>
       </section>
 
