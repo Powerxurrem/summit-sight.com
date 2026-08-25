@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Separate standalone project, not part of the Next.js app.
+    "oddloop-mobile/**",
   ]),
 ]);
 
