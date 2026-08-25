@@ -1,261 +1,329 @@
-export default function SummitSightPersonalSite() {
-  const badges = [
-    "Applied AI",
-    "Backend Systems",
-    "Production SaaS",
-    "Vestaryn",
-  ];
+import Link from "next/link";
+import { BOOK_PRICE, BOOK_PURCHASE_URL, BOOK_STATUS } from "./book-config";
 
-  const pillars = [
-    {
-      title: "Reliable systems first",
-      text: "I build production-grade backend systems with strong architecture, clear interfaces, and calm handling of failure cases.",
-    },
-    {
-      title: "AI that works in practice",
-      text: "My focus is not just generating output with AI, but integrating it into real workflows where validation, structure, and reliability matter.",
-    },
-    {
-      title: "Builder mindset",
-      text: "From payment flows and export pipelines to AI-driven development tooling, I like shipping systems that are useful, explainable, and maintainable.",
-    },
-  ];
+const archive = [
+  {
+    name: "Oddloop",
+    kind: "A tiny browser arcade",
+    description:
+      "A growing cabinet of small games, strange mechanics, daily distractions, and reasons to try once more. Driftline lives here now.",
+    href: "/oddloop",
+    linkLabel: "Open Oddloop",
+    internal: true,
+  },
+  {
+    name: "Emberbound",
+    kind: "Mini turn-based RPG",
+    description:
+      "Three travellers, one mossback wyrm, and a compact old-school command menu. A complete little RPG battle living inside the browser.",
+    href: "/emberbound",
+    linkLabel: "Play Emberbound",
+    internal: true,
+  },
+  {
+    name: "Tiny Delve",
+    kind: "Pocket roguelike",
+    description:
+      "A seven-by-seven dungeon where every step moves the monsters. Gather three runes, choose strange relics, and see how deep a tiny hero can go.",
+    href: "/tiny-delve",
+    linkLabel: "Play Tiny Delve",
+    internal: true,
+  },
+  {
+    name: "Driftline",
+    kind: "Endless tunnel game",
+    description:
+      "A ball, a rotating tunnel, and an endless line of obstacles. Hold left or right, find the gap, and try not to lose the flow.",
+    href: "/driftline",
+    linkLabel: "Play Driftline",
+    internal: true,
+  },
+  {
+    name: "Peak Stack",
+    kind: "Tiny browser game",
+    description:
+      "A calm one-tap stacking game about balance, perfect landings, and convincing yourself that there is time for one more try.",
+    href: "/peak-stack",
+    linkLabel: "Play Peak Stack",
+    internal: true,
+  },
+  {
+    name: "Vestaryn",
+    kind: "Developer tools",
+    description:
+      "An experiment in making AI-assisted development more deliberate: plan the work, review the changes, and verify before applying.",
+    href: "/vestaryn",
+    linkLabel: "Read about the project",
+    internal: true,
+  },
+  {
+    name: "Soundscape",
+    kind: "SaaS & mobile",
+    description:
+      "A real-world software product spanning payments, backend systems, export workflows, and companion mobile apps.",
+    href: "https://soundscape.run",
+    linkLabel: "Visit Soundscape",
+    internal: false,
+  },
+];
 
-  const projects = [
-    {
-      name: "Vestaryn",
-      subtitle: "AI development chamber",
-      description:
-        "An AI development environment where code changes are proposed, verified, and only then applied. Built around structured execution instead of blind mutation.",
-      bullets: [
-        "Proposal → pre-verify → repair → apply → verify loop",
-        "Repository-aware workflows instead of isolated snippets",
-        "Focused on making AI-generated code safer in real systems",
-      ],
-      href: "/vestaryn",
-    },
-    {
-      name: "Soundscape",
-      subtitle: "Production SaaS + mobile companion",
-      description:
-        "A live SaaS platform with Stripe payments, idempotent webhook handling, entitlement logic, and supporting mobile applications.",
-      bullets: [
-        "Production payment and webhook architecture",
-        "Structured export and workflow pipelines",
-        "Shipped as a real product, not just a prototype",
-      ],
-      href: "https://soundscape.run",
-       external: true,
-    },
-  ];
+const bookFeatures = [
+  "12 practical chapters",
+  "Real, anonymized research-lab lessons",
+  "Strategy Kill Pack templates",
+  "Preregistration, robustness, shadow, and promotion frameworks",
+];
 
+const products = [
+  {
+    name: "Browser Research Trail",
+    status: "Early / experimental",
+    description:
+      "A lightweight browser extension that turns focused browsing sessions into searchable research trails.",
+    cta: "Coming soon",
+    href: null,
+  },
+  {
+    name: "Kill Your Own Trading Strategy",
+    status: BOOK_STATUS,
+    description:
+      "A falsification-first field guide to disproving trading ideas before you risk real capital.",
+    cta: "Get the guide",
+    href: "#book",
+  },
+];
+
+export default function Home() {
   return (
-    
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.12),transparent_30%),linear-gradient(to_bottom,rgba(255,255,255,0.02),rgba(255,255,255,0))]" />
+    <main>
+      <nav className="site-nav page-shell" aria-label="Main navigation">
+        <Link className="wordmark" href="/">
+          Summit Sight
+        </Link>
+        <div className="nav-links">
+          <a href="#products">Products</a>
+          <a href="#about">About</a>
+          <a href="#archive">Archive</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
 
-      <main className="relative mx-auto max-w-6xl px-6 py-10 md:px-10 md:py-14">
-        <header className="flex flex-col gap-6 rounded-[32px] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8">
-          <div className="flex flex-wrap items-center gap-3 text-sm text-white/60">
-            <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-100/90">
-              Summit Sight
-            </span>
-            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
-              Deventer, Netherlands
-            </span>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end">
-            <div>
-              <p className="mb-4 text-sm uppercase tracking-[0.28em] text-white/40">
-                Romano Kreugel
-              </p>
-              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl md:text-6xl">
-                Applied AI and backend systems builder focused on reliable, real-world software.
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-white/65 md:text-lg">
-                I build production SaaS systems, structured AI workflows, and tools that move beyond demos into practical use. Most recently, I’m building Vestaryn.
-              </p>
-              <p className="mt-4 text-sm text-white/55">
-                Systems built for real workflows — not demos, not prototypes.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#work"
-                  className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-white/90"
-                >
-                  View work
-                </a>
-                <a
-                  href="#contact"
-                  className="rounded-2xl border border-white/15 bg-white/[0.03] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.07]"
-                >
-                  Contact
-                </a>
-              </div>
-
-              <p className="mt-3 text-xs text-white/45">
-                Available for building production AI systems and backend platforms.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {badges.map((badge) => (
-                  <span
-                    key={badge}
-                    className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-sm text-white/75"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-3 rounded-[28px] border border-white/10 bg-black/30 p-5">
-              <div>
-                <p className="text-xs uppercase tracking-[0.22em] text-white/40">Current focus</p>
-                <p className="mt-2 text-xl font-medium text-white/90">Vestaryn</p>
-                <p className="mt-2 text-sm leading-6 text-white/60">
-                  Building an AI development chamber where changes are proposed, verified, and only then applied.
-                </p>
-                <p className="mt-2 text-xs text-white/45">
-                  AI that proposes → verifies → then applies.
-                </p>
-              </div>
-              <div className="grid gap-2 text-sm text-white/70">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                  Verification before apply
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                  Structured execution over blind mutation
-                </div>
-              </div>
-              <a
-                href="/vestaryn"
-                className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3 text-sm text-cyan-100/90 transition hover:bg-cyan-400/15"
-              >
-                Explore Vestaryn
-              </a>
-            </div>
-          </div>
-        </header>
-
-        <section className="mt-8 grid gap-4 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/[0.08] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
-            >
-              <h2 className="text-lg font-medium text-white/90">{pillar.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-white/60">{pillar.text}</p>
-            </div>
-          ))}
-        </section>
-
-        <section
-          id="work"
-          className="mt-8 rounded-[32px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8"
-        >
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-white/40">Selected work</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white/92 md:text-3xl">
-                Systems built for practical use, not just screenshots.
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-6 text-white/55">
-              I’m most interested in systems where architecture, reliability, and execution quality matter more than surface-level polish.
+      <section className="hero page-shell">
+        <div className="eyebrow">Product studio</div>
+        <div className="hero-grid">
+          <div>
+            <h1>Useful software, guides, and experiments.</h1>
+            <p className="hero-copy">
+              Small products built to solve real problems — from research
+              tools and browser utilities to practical field guides.
             </p>
+            <div className="hero-actions">
+              <a className="btn-primary" href="#products">
+                Browse products
+              </a>
+              <a className="btn-secondary" href="#about">
+                About Summit Sight
+              </a>
+            </div>
           </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {projects.map((project) => (
-              <a
-                key={project.name}
-                href={project.href}
-                className="rounded-[28px] border border-white/10 bg-black/30 p-6 transition hover:-translate-y-1 hover:bg-white/[0.05] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
-              >
-                <p className="text-sm uppercase tracking-[0.18em] text-white/35">{project.subtitle}</p>
-                <h3 className="mt-2 text-2xl font-semibold text-white/92">{project.name}</h3>
-                <p className="mt-4 text-sm leading-6 text-white/60">{project.description}</p>
-                <div className="mt-5 space-y-2">
-                  {project.bullets.map((bullet) => (
-                    <div
-                      key={bullet}
-                      className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/72"
-                    >
-                      {bullet}
-                    </div>
-                  ))}
-                </div>
-              </a>
+          <div className="summit-mark" aria-hidden="true">
+            <span className="sun" />
+            <span className="ridge ridge-one" />
+            <span className="ridge ridge-two" />
+            <span className="ridge ridge-three" />
+          </div>
+        </div>
+      </section>
+
+      <section className="section products-section page-shell" id="products">
+        <div className="section-heading">
+          <p className="section-number">01</p>
+          <h2>Products</h2>
+          <p>What you can use today, and what&apos;s coming next.</p>
+        </div>
+
+        <div className="products-body">
+          <article className="featured-product" id="book">
+            <div className="book-cover-placeholder">
+              <img
+                className="book-cover-image"
+                src="/book-cover.png"
+                alt="Kill Your Own Trading Strategy Before It Kills Your Money — book cover"
+              />
+            </div>
+
+            <div className="featured-product-body">
+              <p className="project-kind">Featured product · {BOOK_STATUS}</p>
+              <h3 className="book-title">
+                Kill Your Own Trading Strategy Before It Kills Your Money
+              </h3>
+              <p className="book-subtitle">
+                A practical field guide to disproving trading ideas before you
+                risk real capital.
+              </p>
+              <p className="book-description">
+                A falsification-first field guide for systematic traders who
+                want to know when a backtest is lying, when an edge
+                disappears after costs, and when a strategy should be killed
+                before real money gets involved.
+              </p>
+
+              <ul className="feature-list">
+                {bookFeatures.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+
+              <div className="book-price-row">
+                <span className="book-price">{BOOK_PRICE}</span>
+                {BOOK_PURCHASE_URL ? (
+                  <a
+                    className="btn-primary"
+                    href={BOOK_PURCHASE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Get the guide
+                  </a>
+                ) : (
+                  <span
+                    className="btn-primary cta-disabled"
+                    title="Purchase link coming soon"
+                    aria-disabled="true"
+                  >
+                    Get the guide
+                  </span>
+                )}
+              </div>
+            </div>
+          </article>
+
+          <div className="product-grid">
+            {products.map((product) => (
+              <article className="product-card" key={product.name}>
+                <span className="status-badge">{product.status}</span>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                {product.href ? (
+                  <a className="project-link" href={product.href}>
+                    {product.cta} <span aria-hidden="true">↗</span>
+                  </a>
+                ) : (
+                  <span
+                    className="project-link cta-disabled"
+                    aria-disabled="true"
+                  >
+                    {product.cta}
+                  </span>
+                )}
+              </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mt-8 grid gap-4 md:grid-cols-[1fr_0.9fr]">
-          <div className="rounded-[32px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/40">Approach</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white/92 md:text-3xl">
-              Calm architecture, structured workflows, real output.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60">
-              I like solving problems where systems need to stay understandable and dependable. That includes backend architecture, APIs, workflow orchestration, and AI integrations that must behave consistently under pressure.
-            </p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:bg-white/[0.05]">
-                <p className="text-sm font-medium text-white/88">Backend systems</p>
-                <p className="mt-2 text-sm leading-6 text-white/58">
-                  APIs, webhook flows, structured export pipelines, entitlement logic, and production reliability.
-                </p>
-              </div>
-              <div className="rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:bg-white/[0.05]">
-                <p className="text-sm font-medium text-white/88">AI integration</p>
-                <p className="mt-2 text-sm leading-6 text-white/58">
-                  LLM workflows, controlled execution, validation loops, and system-level thinking around generated output.
-                </p>
-              </div>
-            </div>
-          </div>
+      <section className="section why-section page-shell" id="why">
+        <div className="section-heading">
+          <p className="section-number">02</p>
+          <h2>Why Summit Sight</h2>
+        </div>
+        <div className="why-body">
+          <p className="why-copy">
+            Summit Sight is a small independent product studio focused on
+            useful, understandable software and practical tools.
+          </p>
+          <p className="principles-list">
+            <span>Small scope</span>
+            <span>Clear purpose</span>
+            <span>Dependable execution</span>
+            <span>No unnecessary complexity</span>
+          </p>
+        </div>
+      </section>
 
-          <div
-            id="contact"
-            className="rounded-[32px] border border-white/10 bg-black/30 p-6 backdrop-blur-xl md:p-8"
+      <section className="section about page-shell" id="about">
+        <div className="section-heading">
+          <p className="section-number">03</p>
+          <h2>About</h2>
+        </div>
+        <div className="about-copy">
+          <p>
+            I like software that feels understandable. The kind where the
+            rough edges have been considered, the moving parts have a reason
+            to exist, and the result helps someone do something real.
+          </p>
+          <p>
+            I&apos;m Romano Kreugel, the builder behind Summit Sight. Away
+            from the neat product descriptions, I&apos;m mostly exploring,
+            learning, rebuilding, and following whatever idea has enough pull
+            to turn into something worth shipping.
+          </p>
+        </div>
+      </section>
+
+      <section className="section archive-section page-shell" id="archive">
+        <div className="section-heading">
+          <p className="section-number">04</p>
+          <h2>Archive</h2>
+          <p>Earlier experiments and past work, kept around on purpose.</p>
+        </div>
+
+        <div className="project-list">
+          {archive.map((project) => (
+            <article className="project" key={project.name}>
+              <div>
+                <p className="project-kind">{project.kind}</p>
+                <h3>{project.name}</h3>
+              </div>
+              <p>{project.description}</p>
+              {project.internal ? (
+                <Link className="project-link" href={project.href}>
+                  {project.linkLabel} <span aria-hidden="true">↗</span>
+                </Link>
+              ) : (
+                <a
+                  className="project-link"
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {project.linkLabel} <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer className="footer page-shell" id="contact">
+        <div>
+          <p className="section-number">05</p>
+          <h2>Questions, ideas, or collaborations?</h2>
+          <p className="footer-copy">
+            Have a product idea, a question about the guide, or want to
+            compare notes? My inbox is open.
+          </p>
+        </div>
+        <div className="contact-links">
+          <a href="mailto:summit-sight@hotmail.com">Email</a>
+          <a
+            href="https://github.com/Powerxurrem"
+            target="_blank"
+            rel="noreferrer"
           >
-            <p className="text-xs uppercase tracking-[0.24em] text-white/40">Contact</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white/92">Let’s connect.</h2>
-            <p className="mt-4 text-sm leading-7 text-white/60">
-              Especially if you’re working on applied AI, backend systems, SaaS products, or opportunities where reliability and practical execution matter.
-            </p>
-            <div className="mt-6 space-y-3 text-sm text-white/75">
-              <a
-                href="mailto:summit-sight@hotmail.com"
-                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
-              >
-                summit-sight@hotmail.com
-              </a>
-              <a
-                href="https://vestaryn.dev"
-                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
-              >
-                vestaryn.dev
-              </a>
-              <a
-                href="https://github.com/Powerxurrem"
-                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/romanokreugel/"
-                className="block rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.07]"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/romanokreugel/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            LinkedIn
+          </a>
+        </div>
+        <p className="copyright">© {new Date().getFullYear()} Summit Sight</p>
+      </footer>
+    </main>
   );
 }

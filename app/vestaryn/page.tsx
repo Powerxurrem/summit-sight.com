@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function VestarynPage() {
   const flow = [
     {
@@ -65,9 +67,9 @@ export default function VestarynPage() {
 
       <main className="relative mx-auto max-w-6xl px-6 py-10 md:px-10 md:py-14">
         <div className="mb-8 flex items-center justify-between rounded-[24px] border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur-xl">
-          <a href="/" className="text-sm font-medium text-white/80 transition hover:text-white">
+          <Link href="/" className="text-sm font-medium text-white/80 transition hover:text-white">
             Summit Sight
-          </a>
+          </Link>
           <div className="flex items-center gap-5 text-sm text-white/55">
             <a href="#how-it-works" className="transition hover:text-white">
               How it works
