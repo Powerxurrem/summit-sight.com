@@ -2,6 +2,16 @@
 
 Date: 19 November 2026. Branch: `rebuild/ss-001-creative-studio`.
 
+## SS-001A — Multi-angle showcase polish
+
+The “Every angle. Considered.” section now presents Original → Multi-Angle Result. The result viewer takes two-thirds of the desktop media width; the source and result stack in reading order at mobile widths. The existing drag, previous/next and range controls remain in the same SequenceViewer component.
+
+The source panel uses a deliberate framed placeholder labelled “Source photograph to be added.” No original photograph has been invented or substituted. The result badge identifies a “12-view illustration · Concept study,” and the shared disclosure explains that the views are not derived from a source photograph, an actual customer result or a 3D reconstruction.
+
+The reusable MultiAngleShowcase reads `multiAngleStudy` from `app/lib/work.ts`. A nullable source image, frames, placeholder copy, labels, captions and disclosure can all be replaced through that content object. The existing SequenceViewer now accepts its study label as a prop. No new assets, generation or dependencies were introduced.
+
+Validation: production build and TypeScript passed; lint passed; the full HTTP/media smoke check passed against a temporary production preview on port 3101. Additional HTML checks confirmed source-before-result order, both labels, the explicit placeholder without a source image, the accuracy disclosure, all twelve angles and the existing arrow/range control markup. `git diff --check` passed. Rendered browser interaction and responsive appearance were not reverified; the earlier browser inspection limitation below remains unresolved.
+
 ## Repository preservation
 
 The initial working tree was clean. The original site remains recoverable at commit `6c6e9cb` on `main`; no unrelated uncommitted work needed checkpointing. All replacement work is on the dedicated branch. The standalone mobile directory, package dependencies/lockfile, Next configuration, Git remote, existing environment configuration and Vercel connection were not modified. No push, production deployment or merge was performed.

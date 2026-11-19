@@ -1,0 +1,139 @@
+.angle-study-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px minmax(0, 2fr);
+  align-items: start;
+  gap: clamp(18px, 2.4vw, 36px);
+}
+
+.angle-study-original,
+.angle-study-result {
+  min-width: 0;
+  margin: 0;
+}
+
+.angle-study-label {
+  display: block;
+  margin: 0 0 18px;
+  color: var(--ivory);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.angle-study-source {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.angle-study-source img {
+  object-fit: contain;
+}
+
+.angle-study-placeholder {
+  position: absolute;
+  inset: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 2vw, 30px);
+  border: 1px dashed #c5ad8040;
+  text-align: center;
+}
+
+.angle-study-placeholder > svg {
+  flex-shrink: 0;
+  margin-bottom: 25px;
+  color: var(--gold);
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.65;
+}
+
+.angle-study-placeholder h3 {
+  max-width: 180px;
+  color: var(--ivory);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.angle-study-placeholder p {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.angle-study-flow {
+  align-self: center;
+  padding-bottom: 95px;
+  color: var(--gold);
+  opacity: 0.75;
+}
+
+.angle-study-flow svg {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.angle-study-caption {
+  margin-top: 17px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.angle-study-disclosure {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.9;
+}
+
+@media (max-width: 760px) {
+  .angle-study-comparison {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .angle-study-source {
+    aspect-ratio: 16 / 9;
+  }
+
+  .angle-study-placeholder {
+    inset: 14px;
+    padding: 20px;
+  }
+
+  .angle-study-placeholder > svg {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 14px;
+  }
+
+  .angle-study-placeholder h3 {
+    max-width: none;
+    font-size: 14px;
+  }
+
+  .angle-study-placeholder p {
+    margin-top: 6px;
+    font-size: 10px;
+  }
+
+  .angle-study-flow {
+    justify-self: center;
+    padding: 0;
+    transform: rotate(90deg);
+  }
+}

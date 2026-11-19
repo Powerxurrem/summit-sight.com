@@ -39,6 +39,8 @@ Obsolete product, book, software and arcade routes have been removed. History re
 
 Add a service to the services array to update both home previews and the detail page. Add entries to selectedWork to update home previews and the Work gallery. Add media to `public/media/` and point the metadata at it. Replace the image-sequence array with actual product views when supplied. Add videos through VideoCard; use a local poster and H.264 MP4 for broad browser support.
 
+The Original → Multi-Angle Result comparison is configured by `multiAngleStudy` in `app/lib/work.ts`. Its `original.image` is intentionally `null` until a genuine source photograph is supplied. Set it to `{ src: "/media/product-source.webp", alt: "Describe the supplied product photograph" }` to display a local source image. Replace `result.frames` with the corresponding product views, and update the captions, `result.studyLabel` and disclosure to accurately describe those assets. Both panels, the placeholder and the existing viewer controls are rendered by reusable components; no layout changes are needed for an asset swap.
+
 All initial imagery is fictional concept material, identified as studio studies. The 12-angle viewer uses illustrated stills. The motion studies animate still images. No client affiliations, commercial results or 3D reconstruction accuracy are implied.
 
 ## Inquiry behavior and configuration
