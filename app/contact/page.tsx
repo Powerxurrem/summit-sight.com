@@ -1,0 +1,8 @@
+import type {Metadata} from "next";
+import Link from "next/link";
+import ContactForm from "../components/contact-form";
+import {studioEmail} from "../lib/content";
+import {Arrow} from "../components/brand";
+import "../components/secondary.css";
+export const metadata:Metadata={title:"Start a Project",description:"Tell Summit Sight about your next creative project. Prepare an email inquiry for product imagery, cinematic video, multi-angle visuals or editing."};
+export default function Contact(){return <main id="main"><section className="page-container page-intro"><p className="eyebrow">GOOD THINGS START WITH A CONVERSATION</p><h1>Start with<br/><em>a possibility.</em></h1><p>A new product. A fresh direction. An idea that needs a little exploration.<br/>Tell us what you have in mind.</p></section><section className="page-container contact-layout"><aside className="contact-aside"><div><p className="eyebrow">DIRECT TO THE STUDIO</p><a className="contact-email" href={`mailto:${studioEmail}`}>{studioEmail} <Arrow diagonal/></a></div><div className="contact-aside-note"><h2>A little context helps.</h2><p>Tell us about the product, the intended channels and what you’d like to create. A target date or budget range can help shape the conversation.</p><p>Still finding the direction? Choose “I’d like guidance” and share your starting point.</p><Link className="text-link" href="/how-it-works">See the process <Arrow diagonal/></Link></div></aside><div className="contact-form-panel"><div className="contact-form-heading"><p className="eyebrow">YOUR PROJECT</p><p>Prepare a draft below, then review and send it from your email app. This form does not send inquiries directly.</p></div><ContactForm/></div></section></main>;}

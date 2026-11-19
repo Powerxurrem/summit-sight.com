@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import {stat,readdir} from "node:fs/promises";
+const base=process.env.PREVIEW_URL||"http://localhost:3100";
+const routes=["/","/services","/work","/how-it-works","/about","/contact"];
+for(const route of routes){const response=await fetch(`${base}${route}`);assert.equal(response.status,200,route);const html=await response.text();assert.match(html,/<main[^>]*id="main"/,`${route}: main landmark`);assert.match(html,/<title>[^<]*Summit Sight/);assert.match(html,/name="description"/);assert.match(html,/property="og:image"/);assert.ok(!/\b(Cinema Lab|Vestaryn|Silen|Oddloop|Mazeloop|trading|field guide)\b/i.test(html),`${route}: obsolete positioning absent`);for(const destination of routes)assert.ok(html.includes(`href="${destination}"`),`${route} navigation to ${destination}`);if(route==="/work"){assert.match(html,/type="range"/);assert.match(html,/aria-label="Select product angle"/);assert.match(html,/preload="none"/);assert.match(html,/<video[^>]*controls/);assert.match(html,/<dialog/);assert.match(html,/role="tablist"/);}if(route==="/contact"){for(const field of ["name","business","email","service","brief"])assert.ok(html.includes(`name="${field}"`));assert.match(html,/does not send inquiries directly/);assert.doesNotMatch(html,/<form[^>]*action="https?:/);}console.log(`PASS ${route}: navigation, metadata, content and landmarks`);}
+for(const route of ["/vestaryn","/oddloop","/mazeloop","/driftline","/tiny-delve","/peak-stack"])assert.equal((await fetch(`${base}${route}`)).status,404);
+console.log("PASS all obsolete public routes return 404");
+async function assets(directory){for(const entry of await readdir(directory,{withFileTypes:true})){const full=`${directory}/${entry.name}`;if(entry.isDirectory()){await assets(full);continue;}const url=full.replace(/^public/,"");const response=await fetch(`${base}${url}`);assert.equal(response.status,200,url);const bytes=(await stat(full)).size;assert.ok(bytes>0,url);if(!url.endsWith(".mp4"))assert.ok(bytes<600_000,`${url} image budget`);else assert.ok(bytes<1_500_000,`${url} video budget`);console.log(`PASS ${url} (${Math.round(bytes/1024)} KiB)`);}}
+await assets("public/media");
+const optimized=await fetch(`${base}/_next/image?url=%2Fmedia%2Fhero.webp&w=1920&q=75`);assert.equal(optimized.status,200);assert.match(optimized.headers.get("content-type"),/image/);
+console.log("PASS responsive Next image optimization");
+console.log("HTTP checks complete. Browser interaction and visual checks must be performed separately.");
