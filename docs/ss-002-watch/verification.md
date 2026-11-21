@@ -28,11 +28,13 @@ The user supplied a screenshot with the comparison indefinitely covered by Prepa
 
 ## Browser limit and local review
 
-The latest user report says the buttons and comparison slider also do not respond. This broadens the investigation to client startup; the earlier image-loading changes did not establish that the reported problem was resolved.
+The user reported that the buttons and comparison slider also did not respond. This broadened the investigation to client startup; the earlier image-loading changes did not establish that the reported problem was resolved.
 
 The development log recorded Next rejecting `/_next/webpack-hmr` requests from the local preview host `10.5.0.2`. A request for an actual page script with `Origin: http://10.5.0.2:3100` also reproduced `403 Unauthorized`. Following the installed Next 16.2 `allowedDevOrigins` documentation, `next.config.ts` now allows that specific development host. Next automatically restarted on the config change. Afterward, all 19 script URLs referenced by `/work` returned JavaScript with status 200 under the same Origin header; a cross-site script request with that host as Referer also returned 200, and the HMR WebSocket handshake with that Origin returned 101. A script request from `unrelated.invalid` still returned 403. Production build passed with the config change. These checks establish that the reproduced origin block is corrected, but do not prove it caused every inactive control or that browser hydration now succeeds.
 
-The most recent CUA attempt stopped because browser URL-policy enforcement is unsupported for the current Windows browser. No new rendered-page screenshot, browser refresh sequence, pointer/touch dispatch or viewport inspection has been verified. HTTP/server-render checks do not establish browser interaction or visual QA, or prove the observed flash is gone. A user hard-refresh and control check is pending.
+After the origin fix, the user completed the requested hard-refresh and explicitly confirmed that both the watch selectors and slider work. They also reported nothing clearly red in the Firefox console. This establishes user-confirmed control recovery; it does not establish that every console message or the earlier icon flash was independently inspected.
+
+The most recent CUA attempt stopped because browser URL-policy enforcement is unsupported for the current Windows browser. No new rendered-page screenshot, automated pointer/touch dispatch or viewport inspection has been verified. Browser interaction confirmation above comes from the user's check; HTTP/server-render checks alone do not establish it.
 
 For review, start `npm.cmd run dev -- --port 3100` and open `/` and `/work#transformations`. Check desktop, tablet, 390px and 320px widths, full-watch visibility, readable copy, all 12 ordered image pairs, four-tab wrapping, opposite-side swaps, retained divider position, image loading/failure recovery, divider dragging/cancellation, keyboard range endpoints, treatment-tab ArrowLeft/Right/Home/End, focus and vertical touch scrolling.
 
