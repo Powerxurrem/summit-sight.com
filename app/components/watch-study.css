@@ -59,15 +59,35 @@
 
 .watch-image-status {
   position: absolute;
-  inset: 0;
+  inset: auto 14px 14px;
   z-index: 4;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background: #22221f;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #161916ed;
   color: #e8dfc9;
   text-align: center;
   font-size: .875rem;
+  pointer-events: none;
+}
+
+.watch-image-retry {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #c9b58d;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.watch-image-retry:focus-visible {
+  outline: 2px solid #dfcca5;
+  outline-offset: 4px;
 }
 
 .watch-comparison .showcase-image-label {

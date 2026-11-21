@@ -17,9 +17,15 @@ The final site loads only local WebP assets from `public/media/watch-study/`; no
 
 ## Content and extension
 
-`app/lib/watch-study.ts` supplies all treatments, the default pair, selection logic, alt text and the visible original AI-generated concept disclosure. `app/components/watch-comparison.tsx` renders two labelled native selects and a square comparison slider. Wet rock on the left and studio on the right remain the default. Either side can show any of the four treatments. Choosing the image currently on the other side swaps the pair; the divider position is retained. A live status describes the current pair, and slider value text identifies each treatment's reveal percentage. Images have load/error handling and a quiet cover until both are ready. The original shared `BeforeAfter` component was left untouched.
+`app/lib/watch-study.ts` supplies all treatments, the default pair, selection logic, alt text and the visible original AI-generated concept disclosure. `app/components/watch-comparison.tsx` renders two labelled native selects and a square comparison slider. Wet rock on the left and studio on the right remain the default. Either side can show any of the four treatments. Choosing the image currently on the other side swaps the pair; the divider position is retained. A live status describes the current pair, and slider value text identifies each treatment's reveal percentage. The two active images load eagerly; a small status badge leaves the images and slider usable during loading. Failed images have a retry button. The original shared `BeforeAfter` component was left untouched.
 
 Scoped CSS preserves the full square watch framing, caps the lower treatment viewer at 720 pixels and stacks the 44-pixel-minimum select controls below 420 pixels. Work's full-image tabs include all four settings. The wrist addition required no component or CSS changes. Future settings can be added to `watchTreatments` and its ID type once matching local imagery exists. No future shots or placeholders are currently rendered.
+
+## Loading recovery
+
+A reported stuck loading cover led to a refresh fix. `app/lib/watch-image-loading.ts` observes native image events and immediately checks cached completion. Stable ref callbacks avoid the installed Next Image error-callback ref behavior that can reassign image sources during rerenders. Detached image listeners are cleaned up during pair switches. Loading no longer blocks the comparison, and retry remounts the current images without changing the selected pair or divider position.
+
+Run `node --test scripts/watch-image-loading.test.mjs` for five regression checks covering cached loads, failures before hydration, cold loading/recovery, listener cleanup and retry. These are image-event unit tests; they do not establish physical browser rendering.
 
 ## Rebuilding optimized files
 
