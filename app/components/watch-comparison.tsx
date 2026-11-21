@@ -64,7 +64,15 @@ export function WatchComparison() {
     <p id={`${id}-pair`} className="watch-pair-status" role="status" aria-live="polite" aria-atomic="true">{left.title} on the left. {right.title} on the right.</p>
     <figure className="showcase-compare">
       <div className="showcase-frame showcase-comparison-frame"
-        onPointerDown={event => { if (!event.isPrimary || event.button !== 0) return; dragging.current = true; event.currentTarget.setPointerCapture(event.pointerId); update(event); }}
+        onPointerDown={event => {
+          if (!event.isPrimary || event.button !== 0) return;
+          // Pointer capture keeps the divider moving outside the frame, but does
+          // not cancel the browser's text-selection gesture on its own.
+          if (event.pointerType !== "touch") event.preventDefault();
+          dragging.current = true;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          update(event);
+        }}
         onPointerMove={event => { if (dragging.current) update(event); }}
         onPointerUp={() => { dragging.current = false; }}
         onPointerCancel={() => { dragging.current = false; }}

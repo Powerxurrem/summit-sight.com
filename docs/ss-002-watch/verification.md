@@ -22,6 +22,10 @@ The square comparison and treatment frames are scoped to this study. The WatchCo
 
 The business-wrist addition uses the existing data-driven selectors and tabs without component or CSS edits.
 
+## Drag selection fix
+
+The user reported that dragging the watch divider beyond the right edge could select surrounding text. The comparison frame now cancels the default mouse/pen selection gesture when a primary drag starts, while retaining pointer capture and clamped divider values. Text selection is disabled only on the watch frame and native range. Touch retains `pan-y` scrolling, the range keeps its native keyboard handling, and surrounding section copy remains selectable. Production build, targeted component lint and `git diff --check` passed. The out-of-bounds browser gesture has not been independently replayed because of the browser inspection limit below.
+
 ## Loading defect evidence
 
 The user supplied a screenshot with the comparison indefinitely covered by Preparing your comparison. An initial fix removed that cover and added native event observation, but the user reported Loading images still remained. The exact browser event sequence behind either report was not directly reproduced. Direct WebPs, optimized URLs and referenced scripts all returned 200 in HTTP checks. The current fix removes both the custom readiness observer and pending state, and uses the known-valid committed image files directly. The comparison therefore emits no loading notice even before client hydration. Real failures retain an explicit retry path.

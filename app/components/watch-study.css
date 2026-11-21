@@ -48,6 +48,12 @@
   aspect-ratio: 1;
 }
 
+.watch-comparison .showcase-comparison-frame,
+.watch-comparison .showcase-range {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .watch-photo {
   position: absolute;
   inset: 0;
