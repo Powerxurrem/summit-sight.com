@@ -1,4 +1,4 @@
-export type WatchTreatmentId = "creative" | "box" | "studio";
+export type WatchTreatmentId = "creative" | "box" | "wrist" | "studio";
 type WatchTreatment = {
   id: WatchTreatmentId;
   src: string;
@@ -19,6 +19,12 @@ export const watchTreatments: WatchTreatment[] = [
     src: "/media/watch-study/presentation-box.webp",
     alt: "The same fictional blue-dial steel-and-gold watch on a navy suede cushion inside an open unbranded presentation box with warm metal trim and visible hinges",
     title: "Presentation box",
+  },
+  {
+    id: "wrist",
+    src: "/media/watch-study/business-wrist.webp",
+    alt: "The same fictional unbranded blue-dial steel-and-gold watch worn on an adult man's wrist beside a charcoal business suit and crisp white shirt cuff",
+    title: "Business wrist",
   },
   {
     id: "studio",

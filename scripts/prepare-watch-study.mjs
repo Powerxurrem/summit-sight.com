@@ -11,6 +11,7 @@ const sourceNames = {
   studio: "exec-52940f33-ad64-4abd-992e-8e13d508399c.png",
   creative: "exec-fd2365e0-83bf-4037-9819-ed0e27d13cb7.png",
   "presentation-box": "exec-91f18e7b-1957-4c25-a469-83dce5952cf8.png",
+  "business-wrist": "exec-19765ffd-d8d7-4adf-80b9-06ace407ba1a.png",
 };
 const sha256 = buffer => createHash("sha256").update(buffer).digest("hex");
 await mkdir(outputDirectory, { recursive: true });
@@ -33,8 +34,8 @@ for (const [treatment, source] of Object.entries(sourceNames)) {
 const manifest = {
   title: "Original fictional unbranded luxury watch concept",
   created: "2026-11-21",
-  method: "Built-in image generation: studio master, then wet-rock and presentation-box edits conditioned on that master. No third-party watch reference used.",
-  review: "Matched camera, pose, framing, blue dial, gold baton markers and steel/gold bracelet visually reviewed. Product geometry is generated, not a calibrated or manufactured design.",
+  method: "Built-in image generation: studio master, then wet-rock, presentation-box and business-wrist edits conditioned on that master. No third-party watch reference used.",
+  review: "Case scale, dial placement, blue dial, gold baton markers and steel/gold bracelet design visually reviewed. Bracelet curvature changes naturally for the cushion and wrist. Product geometry is generated, not a calibrated or manufactured design.",
   images,
 };
 await writeFile(path.join(outputDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
