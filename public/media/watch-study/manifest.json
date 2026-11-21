@@ -1,0 +1,28 @@
+{
+  "title": "Original fictional unbranded luxury watch concept",
+  "created": "2026-11-21",
+  "method": "Built-in image generation: studio master, then an environment-and-lighting edit conditioned on that master. No third-party watch reference used.",
+  "review": "Matched camera, pose, framing, blue dial, gold baton markers and steel/gold bracelet visually reviewed. Product geometry is generated, not a calibrated or manufactured design.",
+  "images": [
+    {
+      "treatment": "studio",
+      "file": "studio.webp",
+      "source": "exec-52940f33-ad64-4abd-992e-8e13d508399c.png",
+      "sourceSha256": "8f365658ffdecdf03b4c58dda702e0dc0df50a009433b80fd8550a88f3a5bc6a",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 159104,
+      "sha256": "fcebb1b8b491b2c4f2abdf9c264862487a9dc8f1fa41541a9adb0654b4e45ff4"
+    },
+    {
+      "treatment": "creative",
+      "file": "creative.webp",
+      "source": "exec-fd2365e0-83bf-4037-9819-ed0e27d13cb7.png",
+      "sourceSha256": "375ccef6b988d60b6c1db6d1904b2ee8633e491887f46ee9ba785c2f6a3ca0b5",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 334138,
+      "sha256": "875ff8ba7aa610c70f8de053a24981b8b9e2d8dd202555a62ee2a79f04cc636f"
+    }
+  ]
+}

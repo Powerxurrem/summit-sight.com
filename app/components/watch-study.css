@@ -1,0 +1,17 @@
+/* Preserve the full bracelet and matched framing at every viewport width. */
+.watch-comparison {
+  min-width: 0;
+}
+
+.watch-comparison .showcase-comparison-frame {
+  aspect-ratio: 1;
+}
+
+.watch-treatment-studies {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.watch-treatment-studies .showcase-transformations .showcase-frame {
+  aspect-ratio: 1;
+}
