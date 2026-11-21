@@ -10,6 +10,7 @@ const outputDirectory = path.resolve("public/media/watch-study");
 const sourceNames = {
   studio: "exec-52940f33-ad64-4abd-992e-8e13d508399c.png",
   creative: "exec-fd2365e0-83bf-4037-9819-ed0e27d13cb7.png",
+  "presentation-box": "exec-91f18e7b-1957-4c25-a469-83dce5952cf8.png",
 };
 const sha256 = buffer => createHash("sha256").update(buffer).digest("hex");
 await mkdir(outputDirectory, { recursive: true });
@@ -21,13 +22,18 @@ for (const [treatment, source] of Object.entries(sourceNames)) {
   const output = await sharp(input).resize({ width: 1254, withoutEnlargement: true }).webp({ quality: 88, effort: 6 }).toBuffer();
   const decoded = await sharp(output).metadata();
   const file = `${treatment}.webp`;
-  await writeFile(path.join(outputDirectory, file), output);
+  const destination = path.join(outputDirectory, file);
+  const existing = await readFile(destination).catch(error => {
+    if (error.code === "ENOENT") return null;
+    throw error;
+  });
+  if (!existing?.equals(output)) await writeFile(destination, output);
   images.push({ treatment, file, source, sourceSha256: sha256(input), width: decoded.width, height: decoded.height, bytes: output.length, sha256: sha256(output) });
 }
 const manifest = {
   title: "Original fictional unbranded luxury watch concept",
   created: "2026-11-21",
-  method: "Built-in image generation: studio master, then an environment-and-lighting edit conditioned on that master. No third-party watch reference used.",
+  method: "Built-in image generation: studio master, then wet-rock and presentation-box edits conditioned on that master. No third-party watch reference used.",
   review: "Matched camera, pose, framing, blue dial, gold baton markers and steel/gold bracelet visually reviewed. Product geometry is generated, not a calibrated or manufactured design.",
   images,
 };

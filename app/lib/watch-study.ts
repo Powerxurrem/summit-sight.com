@@ -1,5 +1,6 @@
+export type WatchTreatmentId = "creative" | "box" | "studio";
 type WatchTreatment = {
-  id: string;
+  id: WatchTreatmentId;
   src: string;
   alt: string;
   title: string;
@@ -11,7 +12,13 @@ export const watchTreatments: WatchTreatment[] = [
     id: "creative",
     src: "/media/watch-study/creative.webp",
     alt: "Original unbranded watch with a deep blue dial, polished steel case and gold-accented bracelet on wet dark rock in cinematic light",
-    title: "Creative treatment",
+    title: "Wet rock",
+  },
+  {
+    id: "box",
+    src: "/media/watch-study/presentation-box.webp",
+    alt: "The same fictional blue-dial steel-and-gold watch on a navy suede cushion inside an open unbranded presentation box with warm metal trim and visible hinges",
+    title: "Presentation box",
   },
   {
     id: "studio",
@@ -21,12 +28,14 @@ export const watchTreatments: WatchTreatment[] = [
   },
 ];
 
-export const watchComparison = {
-  before: watchTreatments[1].src,
-  after: watchTreatments[0].src,
-  beforeAlt: watchTreatments[1].alt,
-  afterAlt: watchTreatments[0].alt,
-};
+export type WatchPair = { left: WatchTreatmentId; right: WatchTreatmentId };
+export const initialWatchPair: WatchPair = { left: "creative", right: "studio" };
+
+// Choosing the opposite image swaps the pair, so every comparison stays useful.
+export function changeWatchPair(pair: WatchPair, side: keyof WatchPair, treatment: WatchTreatmentId): WatchPair {
+  const opposite = side === "left" ? "right" : "left";
+  return { ...pair, [side]: treatment, [opposite]: pair[opposite] === treatment ? pair[side] : pair[opposite] };
+}
 
 export const watchDisclosure =
   "An original AI-generated luxury watch concept. Fictional and unbranded, created as an independent studio exploration. No client commission or brand affiliation.";
