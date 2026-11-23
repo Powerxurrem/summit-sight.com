@@ -12,10 +12,10 @@ export const cinematicStudies = [
     id: "universe-within",
     title: "A Universe Within",
     subtitle: "Surreal transformation / Visual storytelling",
-    description: "An eye fills the frame. A passage through its pupil opens into a blue and gold galaxy.",
-    src: "/media/cinematic-studies/universe-within.mp4",
+    description: "An eye fills the frame. A passage through its pupil opens into a blue and gold galaxy, then returns to the eye.",
+    src: "/media/cinematic-studies/universe-within-ping-pong-v1.mp4",
     poster: "/media/cinematic-studies/universe-within-poster.webp",
-    loop: false,
+    loop: true,
   },
 ] as const;
 

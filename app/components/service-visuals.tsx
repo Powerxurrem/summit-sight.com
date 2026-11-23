@@ -53,6 +53,6 @@ export function ServiceVisual({ service }: { service: Service["id"] }) {
         <Image src={frame.src} alt={frame.alt} fill sizes="(max-width:800px) 28vw, 13vw"/>
       </div><span>{frame.label}</span></li>)}
     </ol>
-    <p className={styles.note}>Two cinematic shots, assembled into one six-second story. An original AI-generated sequence study.</p>
+    <p className={styles.note}>Two cinematic shots, flowing from eye to galaxy and back. An original AI-generated sequence study.</p>
   </div>;
 }

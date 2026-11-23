@@ -1,0 +1,43 @@
+{
+  "source": {
+    "path": "C:/CinemaLabMedia/render/projects/WEB-MOTION-001/universe-within-master--1c1cacef-ecc1-4f33-8f21-9a7038e0d4b7/universe-within-master.mp4",
+    "sha256": "10c8fbe29b7a7ddccdbe4a68a9d4ea02f58510739f611e351202118e8bf27b53",
+    "frames": 144,
+    "fps": 24
+  },
+  "website": {
+    "path": "public/media/cinematic-studies/universe-within-ping-pong-v1.mp4",
+    "sha256": "edd3c6197a85e686a00439833b8a27651504b3af602cfd5164d9f7b9ca8a8e58",
+    "bytes": 3906428,
+    "frames": 286,
+    "fps": 24,
+    "durationSeconds": 11.916667,
+    "technical": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1024,
+          "height": 576,
+          "pix_fmt": "yuv420p",
+          "avg_frame_rate": "24/1",
+          "nb_read_frames": "286"
+        }
+      ],
+      "format": {
+        "duration": "11.916667",
+        "size": "3906428"
+      }
+    }
+  },
+  "edit": "Original frames 0..143 followed by 142..1; the loop seam continues with 0. No generated frames, interpolation, upscale or source overwrite.",
+  "verification": {
+    "fullDecode": true,
+    "comparedFrames": 286,
+    "maxMeanAbsoluteError": 1.0927372685185186,
+    "comparison": "64x36 decoded RGB against the expected source-frame ordering; compression tolerance under4/255",
+    "visualBoundary": "Frame ordering does not establish continuous playback quality."
+  }
+}

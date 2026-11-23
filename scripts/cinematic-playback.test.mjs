@@ -7,8 +7,13 @@ import ts from "typescript";
 const source = ts.transpileModule(readFileSync("app/components/cinematic-video.tsx", "utf8"), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2020 },
 }).outputText;
+const definitions = ts.transpileModule(readFileSync("app/lib/cinematic-studies.ts", "utf8"), {
+  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
+}).outputText;
+const { cinematicStudies } = await import(`data:text/javascript;base64,${Buffer.from(definitions).toString("base64")}`);
 
-function mount({ reduced = false, saveData = false, reject = false, defer = false, observer = true } = {}) {
+function mount({ reduced = false, saveData = false, reject = false, defer = false, observer = true,
+  study = { title: "Study", src: "/study.mp4", poster: "/poster.webp", loop: false } } = {}) {
   class Video extends EventTarget {
     paused = true; ended = false; error = null; currentTime = 0; sources = []; pending = [];
     getAttribute(name) { return name === "src" ? this.source : null; }
@@ -18,7 +23,7 @@ function mount({ reduced = false, saveData = false, reject = false, defer = fals
     play() {
       if (reject) return Promise.reject(new Error("Autoplay blocked"));
       if (defer) return new Promise(resolve => this.pending.push(() => { this.paused = false; this.dispatchEvent(new Event("play")); resolve(); }));
-      this.paused = false; this.dispatchEvent(new Event("play")); return Promise.resolve();
+      this.paused = false; this.ended = false; this.dispatchEvent(new Event("play")); return Promise.resolve();
     }
     pause() { if (!this.paused) { this.paused = true; this.dispatchEvent(new Event("pause")); } }
   }
@@ -42,7 +47,7 @@ function mount({ reduced = false, saveData = false, reject = false, defer = fals
     exports, require: name => name === "react" ? react : name === "react/jsx-runtime" ? { jsx, jsxs: jsx } : { default: {} },
     window, document, navigator: { connection: { saveData } }, IntersectionObserver: window.IntersectionObserver,
   });
-  const tree = exports.CinematicVideo({ study: { title: "Study", src: "/study.mp4", poster: "/poster.webp", loop: false } });
+  const tree = exports.CinematicVideo({ study });
   function find(node, type) {
     if (!node || typeof node !== "object") return;
     if (node.type === type) return node;
@@ -50,7 +55,7 @@ function mount({ reduced = false, saveData = false, reject = false, defer = fals
   }
   const cleanup = effect();
   return {
-    video, tree, cleanup, status: () => status,
+    video, tree, cleanup, player: find(tree, "video"), status: () => status,
     visible: (ratio = 1) => intersection?.([{ isIntersecting: ratio > 0, intersectionRatio: ratio }]),
     click: () => find(tree, "button").props.onClick(),
     hidden: value => { document.hidden = value; document.dispatchEvent(new Event("visibilitychange")); },
@@ -101,4 +106,19 @@ test("a late play resolution cannot restart a hidden or disposed video", async (
 test("without IntersectionObserver, only explicit Play loads the source", () => {
   const card = mount({ observer: false }); assert.equal(card.video.source, undefined);
   card.click(); assert.equal(card.video.paused, false); card.cleanup();
+});
+for (const study of cinematicStudies) test(`${study.title} autoplays and resumes as a loop, including an unexpected ended event`, async () => {
+  const card = mount({ study });
+  assert.equal(card.player.props.loop, true);
+  assert.equal(card.player.props.muted, true);
+  assert.equal(card.player.props.playsInline, true);
+  card.visible(); await settle();
+  assert.equal(card.video.source, study.src); assert.equal(card.video.paused, false);
+  card.video.paused = true; card.video.ended = true; card.video.dispatchEvent(new Event("ended"));
+  await settle(); assert.equal(card.video.paused, false); assert.equal(card.video.currentTime, 0);
+  card.visible(0); assert.equal(card.video.paused, true);
+  card.visible(); await settle(); assert.equal(card.video.paused, false);
+  card.click(); card.visible(0); card.visible();
+  assert.equal(card.video.paused, true, "manual pause stays respected");
+  card.cleanup();
 });

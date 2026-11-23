@@ -48,7 +48,17 @@ export function CinematicVideo({ study }: { study: CinematicStudy }) {
       setStatus("playing");
     };
     const onPause = () => { if (!disposed && !video.ended) setStatus("paused"); };
-    const onEnded = () => { completed = true; setStatus("ended"); };
+    const onEnded = () => {
+      if (study.loop) {
+        // Native looping normally avoids ended; recover if a browser emits it.
+        completed = false;
+        video.currentTime = 0;
+        reconcile();
+        return;
+      }
+      completed = true;
+      setStatus("ended");
+    };
     const onError = () => { blocked = true; setStatus("error"); };
     const onMotion = () => {
       // A new reduced-motion request immediately returns to the real poster.
@@ -108,7 +118,7 @@ export function CinematicVideo({ study }: { study: CinematicStudy }) {
       video.load();
       toggleRef.current = () => {};
     };
-  }, [study.src]);
+  }, [study.src, study.loop]);
 
   const playing = status === "playing";
   const action = playing ? "Pause" : status === "ended" ? "Replay" : status === "error" ? "Retry" : "Play";

@@ -5,6 +5,7 @@ import sharp from "sharp";
 
 const base = process.env.PREVIEW_URL || "http://localhost:3000";
 const manifest = JSON.parse(await readFile("docs/web-004/media-manifest.json", "utf8"));
+const universeLoop = JSON.parse(await readFile("docs/web-004/universe-ping-pong.json", "utf8"));
 for (const route of ["/", "/work"]) {
   const response = await fetch(`${base}${route}`);
   assert.equal(response.status, 200);
@@ -22,7 +23,8 @@ for (const route of ["/", "/work"]) {
     assert.doesNotMatch(video, /\ssrc=|\scontrols=/);
   }
   assert.match(videos[0], /loop=""/);
-  assert.doesNotMatch(videos[1], /\sloop=/);
+  assert.match(videos[1], /loop=""/);
+  assert.ok(html.includes("universe-within-ping-pong-v1.mp4"), "eye study uses the forward/reverse derivative");
   for (const title of ["Ignition", "A Universe Within"]) assert.ok(html.includes(`aria-label="Play ${title}"`));
   assert.doesNotMatch(html, /01 \/ IMAGE STUDIES|04 \/ MOTION STUDIES|amber-motion\.mp4|ritual-motion\.mp4|work-preview-grid/);
   if (route === "/work") {
@@ -43,13 +45,14 @@ for (const route of ["/", "/work"]) {
   console.log(`PASS ${route}: cinematic content, lazy sources, controls, loop policy, anchors and ${scripts.length} client scripts`);
 }
 for (const study of manifest.studies) {
-  const url = study.web.destination.replace(/^public/, "");
+  const playback = study.id === "universe-within" ? universeLoop.website : { path: study.web.destination, sha256: study.web.sha256 };
+  const url = playback.path.replace(/^public/, "");
   const range = await fetch(`${base}${url}`, { headers: { Range: "bytes=0-1023" } });
   assert.equal(range.status, 206); assert.equal((await range.arrayBuffer()).byteLength, 1024);
   const response = await fetch(`${base}${url}`);
   assert.equal(response.status, 200); assert.match(response.headers.get("content-type"), /video\/mp4/);
   const bytes = Buffer.from(await response.arrayBuffer());
-  assert.equal(createHash("sha256").update(bytes).digest("hex"), study.web.sha256);
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), playback.sha256);
   assert.ok(bytes.indexOf(Buffer.from("moov")) < bytes.indexOf(Buffer.from("mdat")), "faststart metadata precedes video data");
   const poster = await fetch(`${base}${study.poster.destination.replace(/^public/, "")}`);
   assert.equal(poster.status, 200);
