@@ -1,0 +1,17 @@
+.study{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:36px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.frame{position:relative;min-width:0;width:100%;max-width:600px}
+.video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#0b0b0b}
+.controls{position:absolute;inset:auto 0 0;display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:26px 12px 12px;background:linear-gradient(transparent,#0009)}
+.control{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 12px;border:1px solid #ffffff40;border-radius:2px;background:#101010e8;color:var(--ivory);font-size:14px;line-height:1.2}
+.control svg{width:18px;height:18px;flex-shrink:0}
+.control:hover{border-color:var(--gold)}
+.control:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.loading{margin-right:auto;color:var(--ivory);font-size:14px}
+.copy{min-width:0}
+.eyebrow{color:var(--gold);font-size:12px;line-height:1.6;letter-spacing:.13em}
+.copy h3{margin-top:11px;font-size:30px;line-height:1.15}
+.copy>p:not(.eyebrow){max-width:470px;margin-top:14px;font-size:16px;line-height:1.7}
+.copy>p.note,.error{font-size:14px;line-height:1.7}
+.error{position:absolute;inset:0 0 80px;display:grid;place-content:center;padding:20px;background:#141413e8;text-align:center}
+.error a{color:var(--gold);text-decoration:underline;text-underline-offset:4px}
+@media(max-width:760px){.study{grid-template-columns:1fr;gap:24px;margin-top:32px;padding-top:24px}.frame{max-width:none}.copy h3{font-size:28px}.copy>p:not(.eyebrow){max-width:none}}

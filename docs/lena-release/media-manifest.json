@@ -1,0 +1,37 @@
+{
+  "status": "user authorized enhanced clip for production publication on 2026-11-23",
+  "source": {
+    "path": "C:\\Users\\summi\\Downloads\\ai(3).mp4",
+    "sha256": "5c7ef73e74bb12e2e7739002356825eac5a9d37b45235a31577ff80e7344fdee",
+    "bytes": 9036829
+  },
+  "video": {
+    "path": "public/media/character-studies/lena-performance-v2.mp4",
+    "sha256": "2b4dc7c348d644787d420d229373c1c579ef8fe6e2b9306119e8109f5dc5b29a",
+    "bytes": 4279426,
+    "width": 1920,
+    "height": 1080,
+    "frames": 285,
+    "fps": "24/1",
+    "durationSeconds": 11.875,
+    "audio": "enhanced source AAC stream copied unchanged",
+    "decodedAudioHash": "SHA256=e943520e65157771fa3e38fd51ab9fbb730cea0de37159721a7b39111aced627",
+    "fastStart": true
+  },
+  "poster": {
+    "path": "public/media/character-studies/lena-poster-v2.webp",
+    "sha256": "8a018a3db577fc964261bc702f531dc5714a4316a7f962e9e6a0d91ce3096b44",
+    "bytes": 68708,
+    "sourceFrame": 120,
+    "width": 1280,
+    "height": 720
+  },
+  "checks": [
+    "source SHA-256 unchanged",
+    "full video and audio decode passed",
+    "frame count, rate and duration preserved",
+    "decoded audio SHA-256 matches source",
+    "moov precedes mdat"
+  ],
+  "review": "User approved publication of the enhanced source. Agent checks establish media integrity, not continuous audiovisual playback, lip-sync quality or caption accuracy."
+}

@@ -1,5 +1,6 @@
 import { cinematicStudies } from "../lib/cinematic-studies";
 import { CinematicVideo } from "./cinematic-video";
+import { CharacterStudy } from "./character-study";
 import styles from "./cinematic-studies.module.css";
 
 export function CinematicStudies({ location }: { location: "home" | "work" }) {
@@ -14,5 +15,6 @@ export function CinematicStudies({ location }: { location: "home" | "work" }) {
       <p className={styles.intro}>Original AI-generated cinematic studies. From the ignition of a supercar to an entire universe hidden within an eye.</p>
     </div>
     <div className={styles.grid}>{cinematicStudies.map(study => <CinematicVideo key={study.id} study={study}/>)}</div>
+    {location === "work" && <CharacterStudy/>}
   </section>;
 }
