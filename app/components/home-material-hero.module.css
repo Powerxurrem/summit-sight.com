@@ -1,0 +1,3 @@
+.hero .image{object-position:center}
+.hero .shade{background:linear-gradient(90deg,#11120fd6 0%,#11120fc7 42%,#11120f9e 60%,#11120f1f 82%,#11120f05 100%),linear-gradient(0deg,#14141380,transparent 35%)}
+@media(max-width:760px){.hero .image{object-position:56% center}.hero .shade{background:linear-gradient(90deg,#11120fe0,#11120fc7),linear-gradient(0deg,#14141380,transparent 45%)}}

@@ -1,0 +1,86 @@
+{
+  "product": "Summit Sight whole milk, 1 litre",
+  "status": "Fictional studio packaging concept; illustrative product copy and nutrition values, not a commercial food label.",
+  "structure": "Square-section one-litre paperboard gable-top milk carton, no plastic cap. Four equal-width faces. The roof ridge runs left to right when the front faces the camera. Triangular folded gable ends sit above the two side panels; green sloping roof faces sit above the front and back.",
+  "palette": "Warm ivory paperboard, deep forest-green ink, muted sunrise-orange accent",
+  "front": {
+    "angle": 0,
+    "text": [
+      "SUMMIT",
+      "SIGHT",
+      "WHOLE MILK",
+      "1 L"
+    ],
+    "graphic": "Large forest-green mountain silhouette and small orange rising sun in lower half, ivory negative space, fine orange horizontal rule. No paragraphs on front."
+  },
+  "right": {
+    "angle": 90,
+    "text": [
+      "THE DAILY",
+      "DETAILS",
+      "Typical values per 100 ml",
+      "Energy 267 kJ / 64 kcal",
+      "Fat 3.6 g",
+      "Carbohydrate 4.7 g",
+      "Protein 3.4 g"
+    ],
+    "graphic": "Neat ruled nutrition table, small mountain icon at bottom"
+  },
+  "back": {
+    "angle": 180,
+    "text": [
+      "A FRESH",
+      "PERSPECTIVE.",
+      "Every morning starts with a fresh perspective.",
+      "Pour a little possibility into your day.",
+      "SUMMIT SIGHT"
+    ],
+    "graphic": "Broad orange sunrise disk behind a layered forest-green mountain landscape, visually distinct from the front. Headline above, short copy below, small wordmark at bottom."
+  },
+  "left": {
+    "angle": 270,
+    "text": [
+      "KEEP IT",
+      "FRESH.",
+      "Ingredients: Whole MILK.",
+      "Keep refrigerated.",
+      "Once opened, use within 3 days.",
+      "1 L"
+    ],
+    "graphic": "Small orange accent rule and a fictional barcode near bottom"
+  },
+  "rotation": [
+    {
+      "angle": 0,
+      "visible": "front square-on"
+    },
+    {
+      "angle": 45,
+      "visible": "front at image-left, right nutrition side at image-right"
+    },
+    {
+      "angle": 90,
+      "visible": "right nutrition side square-on"
+    },
+    {
+      "angle": 135,
+      "visible": "right nutrition side at image-left, back at image-right"
+    },
+    {
+      "angle": 180,
+      "visible": "back square-on"
+    },
+    {
+      "angle": 225,
+      "visible": "back at image-left, left storage side at image-right"
+    },
+    {
+      "angle": 270,
+      "visible": "left storage side square-on"
+    },
+    {
+      "angle": 315,
+      "visible": "left storage side at image-left, front at image-right"
+    }
+  ]
+}

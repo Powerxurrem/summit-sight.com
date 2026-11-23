@@ -1,0 +1,108 @@
+{
+  "title": "Summit Sight Good Hands — fictional hand soap packaging concept",
+  "method": "Built-in image generation: fixed front/back artwork, opaque bottle front/side/back masters and conditioned diagonal views. Dense lettering and fine illustration details may vary. Product and formula copy are fictional; angles and unseen surfaces are approximate.",
+  "reference": "reference.webp",
+  "rotation": "Clockwise from above; front, right side, back, left side. Pump nozzle stays attached toward the front of the bottle. visibleFaces lists panels in image left-to-right order.",
+  "frames": [
+    {
+      "angle": 0,
+      "file": "view-000.webp",
+      "visibleFaces": [
+        "front"
+      ],
+      "nozzleDirection": "toward camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 53076,
+      "source": "exec-5aa61f86-cad3-4eef-b760-f6e7e848bba8.png"
+    },
+    {
+      "angle": 45,
+      "file": "view-045.webp",
+      "visibleFaces": [
+        "front",
+        "right side"
+      ],
+      "nozzleDirection": "left, toward camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 50104,
+      "source": "exec-03c0fd47-504e-456a-b7b8-62c7134193e1.png"
+    },
+    {
+      "angle": 90,
+      "file": "view-090.webp",
+      "visibleFaces": [
+        "right side"
+      ],
+      "nozzleDirection": "left",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 20502,
+      "source": "exec-32bdf526-9bc0-4885-9878-f61ffba4dfaa.png"
+    },
+    {
+      "angle": 135,
+      "file": "view-135.webp",
+      "visibleFaces": [
+        "right side",
+        "back"
+      ],
+      "nozzleDirection": "left, away from camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 53658,
+      "source": "exec-aa1a873f-7edc-44c9-8809-47986a6f03a6.png"
+    },
+    {
+      "angle": 180,
+      "file": "view-180.webp",
+      "visibleFaces": [
+        "back"
+      ],
+      "nozzleDirection": "away from camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 55404,
+      "source": "exec-a2b2f0b8-8a84-4e02-aa6f-036e1b1eae01.png"
+    },
+    {
+      "angle": 225,
+      "file": "view-225.webp",
+      "visibleFaces": [
+        "back",
+        "left side"
+      ],
+      "nozzleDirection": "right, away from camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 54632,
+      "source": "exec-b5c67b7f-9361-496a-96e6-75ee340ffa9e.png"
+    },
+    {
+      "angle": 270,
+      "file": "view-270.webp",
+      "visibleFaces": [
+        "left side"
+      ],
+      "nozzleDirection": "right",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 19788,
+      "source": "exec-decd526e-4e63-4ac4-9a73-ce8699d0593b.png"
+    },
+    {
+      "angle": 315,
+      "file": "view-315.webp",
+      "visibleFaces": [
+        "left side",
+        "front"
+      ],
+      "nozzleDirection": "right, toward camera",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 54564,
+      "source": "exec-aa8fab7c-b13d-453b-ad0d-9ab67f9a1b44.png"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "mission": "WEB-004",
+  "date": "2026-11-23",
+  "delivery": "Local review candidate; no deployment or creative approval claimed.",
+  "scope": [
+    "Homepage first showcase replaced",
+    "/work image studies replaced",
+    "/work lower motion section removed"
+  ],
+  "routingDecision": "User confirmed both homepage and /work. Both locations contain the cinematic refresh.",
+  "filesChanged": [
+    "app/page.tsx",
+    "app/work/page.tsx",
+    "app/lib/cinematic-studies.ts",
+    "app/components/cinematic-studies.tsx",
+    "app/components/cinematic-video.tsx",
+    "app/components/cinematic-studies.module.css",
+    "scripts/prepare-cinematic-studies.mjs",
+    "scripts/verify-cinematic-studies.mjs",
+    "scripts/cinematic-playback.test.mjs",
+    "scripts/verify-site.mjs",
+    "scripts/watch-comparison.test.mjs",
+    "public/media/cinematic-studies/ignition.mp4",
+    "public/media/cinematic-studies/universe-within.mp4",
+    "public/media/cinematic-studies/ignition-poster.webp",
+    "public/media/cinematic-studies/universe-within-poster.webp",
+    "docs/web-004/media-manifest.json",
+    "docs/web-004/ignition-endpoints.png",
+    "docs/web-004/universe-within-endpoints.png",
+    "docs/web-004/verification.json"
+  ],
+  "media": [
+    {
+      "id": "ignition",
+      "url": "/media/cinematic-studies/ignition.mp4",
+      "videoBytes": 937715,
+      "posterUrl": "/media/cinematic-studies/ignition-poster.webp",
+      "posterBytes": 50082,
+      "optimization": "Reused the supplied H.264 CRF20 yuv420p faststart web derivative. No video re-encoding, upscale, trim, generation or creative alteration in this task.",
+      "poster": "WebP quality 86 extracted from frame 0 of the delivered master.",
+      "sourceMasterSha256": "941329cdba165abb8e0bcf73973b6210e8b411795c901c0b7a47a8bde2ff67b5",
+      "masterAndWebFullDecode": "PASS",
+      "sourcePreservation": "Master SHA-256 unchanged after integration."
+    },
+    {
+      "id": "universe-within",
+      "url": "/media/cinematic-studies/universe-within.mp4",
+      "videoBytes": 1956910,
+      "posterUrl": "/media/cinematic-studies/universe-within-poster.webp",
+      "posterBytes": 100168,
+      "optimization": "Reused the supplied H.264 CRF20 yuv420p faststart web derivative. No video re-encoding, upscale, trim, generation or creative alteration in this task.",
+      "poster": "WebP quality 86 extracted from frame 0 of the delivered master.",
+      "sourceMasterSha256": "10c8fbe29b7a7ddccdbe4a68a9d4ea02f58510739f611e351202118e8bf27b53",
+      "masterAndWebFullDecode": "PASS",
+      "sourcePreservation": "Master SHA-256 unchanged after integration."
+    }
+  ],
+  "playback": {
+    "default": "Muted inline playback after individual card reaches 35% visibility; pause below threshold or when document is hidden.",
+    "controls": "Keyboard-accessible Play/Pause/Replay with title-specific labels; persistent manual pause; media error direct-file fallback.",
+    "reducedMotion": "No video source attached automatically; display poster. Explicit Play permitted. Live preference change pauses and restores poster.",
+    "dataSaver": "saveData requests disable unsolicited playback.",
+    "autoplayBlocked": "Catch play rejection and retain manual Play; avoid repeated automatic attempts.",
+    "ignition": "Loop enabled as requested. Endpoint samples differ; no seamless-loop quality claim.",
+    "universe": "No loop: endpoint inspection shows eye opening versus galaxy ending. Hold last frame and offer Replay.",
+    "legacyAnchors": [
+      "/#selected-work",
+      "/work#concepts",
+      "/work#motion",
+      "/work#amber-stone",
+      "/work#quiet-form",
+      "/work#daily-ritual"
+    ],
+    "responsive": "Equal 16:9 desktop cards; one column at 760px and below; native aspect ratio reserved in markup and CSS. Not visually browser-verified."
+  },
+  "checks": [
+    {
+      "command": "npm.cmd run build",
+      "result": "PASS; Next 16.2.0 production build, TypeScript, 13 static pages"
+    },
+    {
+      "command": "npm.cmd run lint",
+      "result": "PASS; fixed pre-existing no-assign-module-variable violation in the watch test by renaming its local variable"
+    },
+    {
+      "command": "node --test scripts/cinematic-playback.test.mjs scripts/watch-comparison.test.mjs scripts/turnaround-controls.test.mjs",
+      "result": "16 passed; includes 9 cinematic playback event simulations, 3 watch tests, 4 turnaround tests; watch suite rerun after variable rename"
+    },
+    {
+      "command": "$env:PREVIEW_URL=\"http://localhost:3000\"; node scripts/verify-site.mjs",
+      "result": "PASS; all six routes, navigation, metadata, obsolete 404 routes, media URLs, image budgets, existing watch/turnaround markup and image optimization"
+    },
+    {
+      "command": "$env:PREVIEW_URL=\"http://localhost:3000\"; node scripts/verify-cinematic-studies.mjs",
+      "result": "PASS; both routes, correct posters/video markup, no initial video sources, custom controls, loop policy, preserved anchors, 19 delivered client scripts per route, HTTP range support and served SHA-256"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "browser": {
+    "desktopVisual": "NOT VERIFIED",
+    "mobileVisual": "NOT VERIFIED",
+    "actualPlaybackAndControls": "NOT VERIFIED",
+    "reducedMotionInBrowser": "NOT VERIFIED; event-simulation regression checks pass",
+    "console": "NOT VERIFIED; client script URLs return JavaScript 200, but this is not proof of hydration or a clean browser console",
+    "blocker": "Browser host unavailable. Native Firefox Computer Use stopped because browser URL policy enforcement is not supported for the current Windows browser. No bypass attempted.",
+    "reviewUrls": [
+      "http://localhost:3000/#selected-work",
+      "http://localhost:3000/work#concepts"
+    ],
+    "requiredHQReview": [
+      "Desktop and phone-width layout, no horizontal overflow",
+      "Continuous playback and Ignition loop cadence",
+      "Play/pause/replay by keyboard and touch",
+      "Scroll/tab visibility pausing",
+      "Reduced motion poster and explicit play",
+      "Autoplay-blocked fallback",
+      "Browser console and navigation"
+    ]
+  },
+  "preservation": "No writes to Cinema Lab A/B/C or the central media library. Old image and placeholder video files preserved. Existing watch and milk/soap turnaround changes retained. No added dependencies. Existing localhost:3000 development server reused and left running; attempted new server exited without affecting it."
+}

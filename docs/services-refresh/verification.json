@@ -1,0 +1,32 @@
+{
+  "scope": "Services visuals refresh, local checkout only",
+  "replacements": {
+    "imagery": "Three existing original watch settings: wet rock, studio and presentation box",
+    "multi-angle": "Existing Good Hands soap front, angled and back views",
+    "video": "Existing Ignition movie with its native poster and viewport-gated player",
+    "editing": "Existing A Universe Within movie with Opening / Passage / Reveal sequence stills"
+  },
+  "filesChanged": [
+    "app/services/page.tsx",
+    "app/lib/content.ts",
+    "app/components/service-visuals.tsx",
+    "app/components/service-visuals.module.css",
+    "scripts/prepare-service-stills.mjs",
+    "public/media/service-studies/universe-passage.webp",
+    "public/media/service-studies/universe-reveal.webp",
+    "docs/services-refresh/media-manifest.json",
+    "docs/services-refresh/verification.json"
+  ],
+  "checks": {
+    "productionBuild": "PASS",
+    "fullLint": "PASS",
+    "siteHTTPVerification": "PASS",
+    "serviceSectionsAndLinks": "PASS for all four service sections",
+    "optimizedImages": "9 service images served and decoded successfully",
+    "videoInitialLoading": "No initial src, preload none, custom controls; reused existing playback component",
+    "diffWhitespace": "PASS"
+  },
+  "browserVisualReview": "Not verified. Browser host and Windows URL-policy limitation from the current session remains unresolved. No desktop/mobile visual or continuous playback claim.",
+  "preservation": "All source images and movies preserved. Existing homepage and /work refresh retained. No generation, new dependencies or deployment.",
+  "preview": "http://localhost:3000/services"
+}

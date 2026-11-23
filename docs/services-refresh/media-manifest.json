@@ -1,0 +1,21 @@
+{
+  "source": "public/media/cinematic-studies/universe-within.mp4",
+  "sourceSha256": "250b9ad9cf9ac379c28a173b9e0f82b262fa9d09b58cede9bebaccfdea93c634",
+  "method": "Exact decoded frames, scaled down to 640x360; no creative alteration or generation.",
+  "frames": [
+    {
+      "destination": "public/media/service-studies/universe-passage.webp",
+      "sourceFrame": 72,
+      "fps": 24,
+      "bytes": 18472,
+      "sha256": "e52f9e696ecf12ff7513db6f48406f6603025f9f57ccdb746c5a8a3a481b84e3"
+    },
+    {
+      "destination": "public/media/service-studies/universe-reveal.webp",
+      "sourceFrame": 128,
+      "fps": 24,
+      "bytes": 50172,
+      "sha256": "ba5e392a455e342b083d3b114ef127b3bde4d45eca2d2e78567752f606ccf0bf"
+    }
+  ]
+}

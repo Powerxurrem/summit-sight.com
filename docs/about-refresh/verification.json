@@ -1,0 +1,29 @@
+{
+  "scope": "About page abstract material image replacement",
+  "generation": "One built-in image_gen attempt; prompt saved in generation.json",
+  "filesChanged": [
+    "app/about/page.tsx",
+    "app/components/about-material-study.module.css",
+    "scripts/prepare-about-image.mjs",
+    "public/media/about-material-study.webp",
+    "docs/about-refresh/generation.json",
+    "docs/about-refresh/material-study-source.png",
+    "docs/about-refresh/media-manifest.json",
+    "docs/about-refresh/desktop-crop.webp",
+    "docs/about-refresh/mobile-crop.webp",
+    "docs/about-refresh/verification.json"
+  ],
+  "visualReview": "Generated image and decoded desktop 12:5 and mobile 4:3 crop previews inspected. Glass arch, brushed metal ribbon and gold light present. No text, people, brands or workspace representation.",
+  "checks": {
+    "productionBuild": "PASS",
+    "fullLint": "PASS",
+    "siteHTTPVerification": "PASS",
+    "aboutImageAndCaption": "PASS",
+    "originalAboutCopy": "Preserved",
+    "optimizedImageDecode": "PASS",
+    "diffWhitespace": "PASS"
+  },
+  "browserReview": "Actual desktop/mobile browser rendering not verified; browser access host and Windows URL-policy limitation remain unavailable in this session.",
+  "preservation": "Previous skincare image retained. Other pages left intact. No deployment.",
+  "preview": "http://localhost:3000/about"
+}

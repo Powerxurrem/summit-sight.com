@@ -1,0 +1,10 @@
+.angle-studies-picker{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.angle-studies-heading{margin:0;color:var(--muted);font-size:.875rem;letter-spacing:.08em;text-transform:uppercase}
+.angle-studies-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.angle-studies-tabs button{min-height:44px;padding:11px 24px;border:1px solid var(--line);background:transparent;color:var(--ivory);font:inherit;font-size:.875rem;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.angle-studies-tabs button[aria-selected=true]{background:var(--gold);border-color:var(--gold);color:var(--charcoal,#171716)}
+.angle-studies-tabs button:hover{border-color:var(--gold)}
+.angle-studies-tabs button:focus-visible,.angle-studies-panel:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.angle-studies-description{margin:0 0 28px;color:var(--muted);font-size:1rem;line-height:1.8;max-width:720px}
+@media(max-width:480px){.angle-studies-picker{align-items:flex-start;flex-direction:column}.angle-studies-tabs{width:100%}.angle-studies-tabs button{flex:1;padding-inline:14px}}
+@media(prefers-reduced-motion:reduce){.angle-studies-tabs button{transition:none}}

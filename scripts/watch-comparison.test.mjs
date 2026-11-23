@@ -12,12 +12,12 @@ function loadSource(file, dependencies = {}) {
   const code = ts.transpileModule(readFileSync(file, "utf8"), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   }).outputText;
-  const module = { exports: {} };
+  const evaluatedModule = { exports: {} };
   vm.runInNewContext(code, {
-    module, exports: module.exports,
+    module: evaluatedModule, exports: evaluatedModule.exports,
     require: name => name.endsWith(".css") ? {} : dependencies[name] || require(name),
   }, { filename: file });
-  return module.exports;
+  return evaluatedModule.exports;
 }
 const study = loadSource("app/lib/watch-study.ts");
 const { WatchComparison } = loadSource("app/components/watch-comparison.tsx", { "../lib/watch-study": study });

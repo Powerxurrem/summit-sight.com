@@ -1,0 +1,131 @@
+{
+  "mission": "WEB-004",
+  "studies": [
+    {
+      "id": "ignition",
+      "master": {
+        "source": "C:/CinemaLabMedia/render/projects/WEB-MOTION-001/ignition-master--d9475055-4960-47d3-a709-f735a2367993/ignition-master.mp4",
+        "bytes": 1804952,
+        "sha256": "941329cdba165abb8e0bcf73973b6210e8b411795c901c0b7a47a8bde2ff67b5",
+        "assetId": "d9475055-4960-47d3-a709-f735a2367993",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1024,
+              "height": 576,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "120"
+            }
+          ],
+          "format": {
+            "duration": "5.000000",
+            "size": "1804952",
+            "bit_rate": "2887923"
+          }
+        }
+      },
+      "web": {
+        "source": "C:/CinemaLabMedia/render/projects/WEB-MOTION-001/ignition-web--239f056f-ffc3-4515-842c-f07b95d5dcb2/ignition-web.mp4",
+        "bytes": 937715,
+        "sha256": "13bb40be1c8f6662f6197a7836bcc25ed91c77a35093b0323e471c98d163a552",
+        "assetId": "239f056f-ffc3-4515-842c-f07b95d5dcb2",
+        "destination": "public/media/cinematic-studies/ignition.mp4",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1024,
+              "height": 576,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "120"
+            }
+          ],
+          "format": {
+            "duration": "5.000000",
+            "size": "937715",
+            "bit_rate": "1500344"
+          }
+        }
+      },
+      "poster": {
+        "destination": "public/media/cinematic-studies/ignition-poster.webp",
+        "sourceMasterSha256": "941329cdba165abb8e0bcf73973b6210e8b411795c901c0b7a47a8bde2ff67b5",
+        "sourceFrame": 0,
+        "bytes": 50082,
+        "sha256": "c667a7d973fdd6618985f44d53ff623c64ab7a19801baae22b9d584a2a06923a"
+      }
+    },
+    {
+      "id": "universe-within",
+      "master": {
+        "source": "C:/CinemaLabMedia/render/projects/WEB-MOTION-001/universe-within-master--1c1cacef-ecc1-4f33-8f21-9a7038e0d4b7/universe-within-master.mp4",
+        "bytes": 3789745,
+        "sha256": "10c8fbe29b7a7ddccdbe4a68a9d4ea02f58510739f611e351202118e8bf27b53",
+        "assetId": "1c1cacef-ecc1-4f33-8f21-9a7038e0d4b7",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1024,
+              "height": 576,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "144"
+            }
+          ],
+          "format": {
+            "duration": "6.000000",
+            "size": "3789745",
+            "bit_rate": "5052993"
+          }
+        }
+      },
+      "web": {
+        "source": "C:/CinemaLabMedia/render/projects/WEB-MOTION-001/universe-within-web--42273861-d029-496e-9e9f-d149ae172ce4/universe-within-web.mp4",
+        "bytes": 1956910,
+        "sha256": "250b9ad9cf9ac379c28a173b9e0f82b262fa9d09b58cede9bebaccfdea93c634",
+        "assetId": "42273861-d029-496e-9e9f-d149ae172ce4",
+        "destination": "public/media/cinematic-studies/universe-within.mp4",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1024,
+              "height": 576,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "144"
+            }
+          ],
+          "format": {
+            "duration": "6.000000",
+            "size": "1956910",
+            "bit_rate": "2609213"
+          }
+        }
+      },
+      "poster": {
+        "destination": "public/media/cinematic-studies/universe-within-poster.webp",
+        "sourceMasterSha256": "10c8fbe29b7a7ddccdbe4a68a9d4ea02f58510739f611e351202118e8bf27b53",
+        "sourceFrame": 0,
+        "bytes": 100168,
+        "sha256": "e96f242ce2dd4398851525f446e9502d4f539ed7879f341e5f7ee7d90cc76e58"
+      }
+    }
+  ]
+}

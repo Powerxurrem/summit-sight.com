@@ -1,0 +1,100 @@
+{
+  "title": "Summit Sight Whole Milk — fictional packaging concept",
+  "method": "Built-in image generation: fixed four-panel packaging artwork, front/side/back masters and conditioned diagonal views. Angles and unseen surfaces are artistic approximations. Label copy and nutrition values are fictional.",
+  "reference": "reference.webp",
+  "rotation": "Clockwise as seen from above; front, nutrition, back, storage. visibleFaces lists panels in image left-to-right order.",
+  "frames": [
+    {
+      "angle": 0,
+      "file": "view-000.webp",
+      "visibleFaces": [
+        "front"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 44616,
+      "source": "exec-35d3bb81-18d4-47a7-b4fb-8fa2befdb722.png"
+    },
+    {
+      "angle": 45,
+      "file": "view-045.webp",
+      "visibleFaces": [
+        "front",
+        "nutrition"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 63716,
+      "source": "exec-0e637aed-9baf-40a2-9b97-50cc2575b38f.png"
+    },
+    {
+      "angle": 90,
+      "file": "view-090.webp",
+      "visibleFaces": [
+        "nutrition"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 37412,
+      "source": "exec-379bb11d-8a49-4979-88ed-7f24ec2e2679.png"
+    },
+    {
+      "angle": 135,
+      "file": "view-135.webp",
+      "visibleFaces": [
+        "nutrition",
+        "back"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 61810,
+      "source": "exec-9064efac-d264-42ed-acd0-452f126efa6f.png"
+    },
+    {
+      "angle": 180,
+      "file": "view-180.webp",
+      "visibleFaces": [
+        "back"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 45232,
+      "source": "exec-d91eb889-e4d5-420b-8cc7-def432c61fcc.png"
+    },
+    {
+      "angle": 225,
+      "file": "view-225.webp",
+      "visibleFaces": [
+        "back",
+        "storage"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 55924,
+      "source": "exec-4f636eeb-43a8-4dd2-94da-f53f8950e430.png"
+    },
+    {
+      "angle": 270,
+      "file": "view-270.webp",
+      "visibleFaces": [
+        "storage"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 35650,
+      "source": "exec-abcee97c-366b-4486-adb3-c34d6899752c.png"
+    },
+    {
+      "angle": 315,
+      "file": "view-315.webp",
+      "visibleFaces": [
+        "storage",
+        "front"
+      ],
+      "width": 1024,
+      "height": 1024,
+      "bytes": 59004,
+      "source": "exec-164b58c2-a173-498d-8a03-02649cb25dcc.png"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "release": "Summit Sight creative studio launch",
+  "date": "2026-11-23",
+  "authorization": "User explicitly requested production deployment after reviewing the website updates.",
+  "repository": "https://github.com/Powerxurrem/summit-sight.com",
+  "productionBranch": "main",
+  "previousProductionCommit": "6c6e9cbe97965a4b300155170a80c454e1e17a2e",
+  "productionDomain": "https://summit-sight.com",
+  "scope": [
+    "Publish the six-page creative studio rebuild",
+    "Use the glass-and-metal material study on Home and About",
+    "Show Ignition and A Universe Within on Home and Work",
+    "Show the soap turnaround alone on Work, preserving the hidden milk assets",
+    "Use relevant original study media for all four Services visuals"
+  ],
+  "preservation": "Named source media, archived site history and the separate mobile directory are preserved. No force push is planned.",
+  "validation": {
+    "productionBuild": "PASS",
+    "lint": "PASS",
+    "regressionTests": "16 passed",
+    "visualEvidence": "Decoded image crops and source media inspected; automated desktop/mobile browser interaction remains unavailable due to the browser host and Windows URL-policy limitation."
+  },
+  "deploymentEvidence": "Use the Vercel commit status for the production main-branch SHA and verify the public domain after the deployment completes.",
+  "contact": "The contact form prepares a user-reviewed email draft. It does not send inquiries directly."
+}

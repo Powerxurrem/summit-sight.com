@@ -33,15 +33,21 @@ Obsolete product, book, software and arcade routes have been removed. History re
 
 - Services and workflow: `app/lib/content.ts`.
 - Selected work, transformation sets, image sequence: `app/lib/work.ts`.
-- Reusable interactive viewers: `app/components/showcases.tsx`.
+- Reusable interactive viewers: `app/components/showcases.tsx`; the turnaround player is in `app/components/sequence-viewer.tsx`.
 - Optimized local media: `public/media/`.
 - Asset origin and prompts: [docs/media-prompts.md](docs/media-prompts.md).
 
 Add a service to the services array to update both home previews and the detail page. Add entries to selectedWork to update home previews and the Work gallery. Add media to `public/media/` and point the metadata at it. Replace the image-sequence array with actual product views when supplied. Add videos through VideoCard; use a local poster and H.264 MP4 for broad browser support.
 
-The Original → Multi-Angle Result comparison is configured by `multiAngleStudy` in `app/lib/work.ts`. Its `original.image` is intentionally `null` until a genuine source photograph is supplied. Set it to `{ src: "/media/product-source.webp", alt: "Describe the supplied product photograph" }` to display a local source image. Replace `result.frames` with the corresponding product views, and update the captions, `result.studyLabel` and disclosure to accurately describe those assets. Both panels, the placeholder and the existing viewer controls are rendered by reusable components; no layout changes are needed for an asset swap.
+The Reference image → Interactive result showcase has two choices in `turnaroundStudies` in `app/lib/work.ts`: **Milk carton** (the unchanged default `multiAngleStudy`) and **Soap bottle** (`soapStudy`). Each has eight generated views. Milk uses `public/media/milk-turnaround/`; soap uses `public/media/soap-turnaround/`. `TurnaroundStudies` renders accessible tabs and only mounts the active study, resetting its viewer to the front when switching. Milk's front, nutrition, sunrise back and storage panels are preserved. Good Hands soap adds an opaque oxblood pump bottle with botanical front artwork and a dense back label. The fifth frame (180°) is the back in both sets.
 
-All initial imagery is fictional concept material, identified as studio studies. The 12-angle viewer uses illustrated stills. The motion studies animate still images. No client affiliations, commercial results or 3D reconstruction accuracy are implied.
+To replace or add a study, configure `{ id, label, description, study }` in `turnaroundStudies`. Replace each study's `original.image` and `result.frames` together; frames have `{ src, alt, angle }`, with angles in degrees ordered around the product. Update captions, `result.studyLabel` and disclosure for the actual assets. A null source still displays the placeholder. No viewer changes are required for another customer-approved sequence.
+
+The player supports pointer/touch dragging, wrapping arrows, a native angle slider, keyboard arrows and Home/End. Adjacent responsive images are prepared only as the viewer approaches the viewport or is used; image changes wait for decoding and respect reduced motion. All imagery is fictional concept material. Generated unseen surfaces and viewing angles are approximate. The older twelve illustrated SVGs are retained as unused legacy assets. Motion studies animate still images. No client affiliations, commercial results or 3D reconstruction accuracy are implied.
+
+See the [milk contact sheet](docs/ss-002/milk-accepted-views.jpg), [four-face artwork](docs/ss-002/milk-packaging-artwork.webp), [visual review and verification](docs/verification.md), and [milk generation prompts](docs/ss-002/milk-generation-prompts.json). To regenerate WebP derivatives and the contact sheet from the original PNGs, set `SUMMIT_TURNAROUND_SOURCE_DIR` as recorded in [media-prompts.md](docs/media-prompts.md), then run `node scripts/prepare-milk-turnaround.mjs`. No generation backend or API key is needed to run the site. The earlier amber trial remains preserved as unused assets; `prepare-turnaround.mjs` rebuilds that historical trial.
+
+The [soap contact sheet](docs/ss-002/soap-accepted-views.jpg), [front/back label artwork](docs/ss-002/soap-label-artwork.webp) and [soap prompts](docs/ss-002/soap-generation-prompts.json) document the second study. Run `node scripts/prepare-soap-turnaround.mjs` with the same source-directory environment variable to rebuild its derivatives. Product, formula and label copy are fictional; fine print and illustration details may vary across generated views.
 
 ## Inquiry behavior and configuration
 
@@ -56,10 +62,11 @@ If direct delivery is required later, connect a verified endpoint and implement 
 ```powershell
 npm.cmd run lint
 npm.cmd run build
+node --test scripts/turnaround-controls.test.mjs
 node scripts/verify-site.mjs
 ```
 
-Run the last check against a production preview on port 3100, or set `PREVIEW_URL`. It verifies page responses, navigation links, metadata, local media, removed-route 404s, media budgets, native control markup and responsive image optimization. It does not substitute for browser interaction or visual inspection.
+The control tests use Node 24's built-in TypeScript support. Run the last check against a production preview on port 3100, or set `PREVIEW_URL`. It verifies page responses, navigation links, metadata, local media, removed-route 404s, media budgets, native control markup, reference/frame order, configuration, full image decoding, matching dimensions and responsive image optimization. It does not substitute for browser interaction or visual inspection.
 
 See [docs/verification.md](docs/verification.md) for this delivery's verification and remaining browser QA.
 

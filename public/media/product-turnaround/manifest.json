@@ -1,0 +1,71 @@
+{
+  "title": "Amber fragrance — original fictional concept",
+  "method": "Built-in image generation conditioned on the front reference and accepted 45-degree view. Approximate angles; unseen surfaces are artistic approximations, not measured geometry.",
+  "reference": "reference.webp",
+  "frames": [
+    {
+      "angle": 0,
+      "file": "view-000.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 35374,
+      "source": "exec-416f4d17-a518-47fc-89c5-1bee9c3e6d88.png"
+    },
+    {
+      "angle": 45,
+      "file": "view-045.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 41890,
+      "source": "exec-aa3c639a-14ab-4d42-a983-e8afa03afe0c.png"
+    },
+    {
+      "angle": 90,
+      "file": "view-090.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 24984,
+      "source": "exec-cfb7c6f6-335c-4cd2-8062-dd2ece00cf33.png"
+    },
+    {
+      "angle": 135,
+      "file": "view-135.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 41388,
+      "source": "exec-88fa57af-cc3b-4428-86e0-cdb2851de487.png"
+    },
+    {
+      "angle": 180,
+      "file": "view-180.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 36144,
+      "source": "exec-6cbbf240-6be7-4507-b180-87705e9c85ee.png"
+    },
+    {
+      "angle": 225,
+      "file": "view-225.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 43600,
+      "source": "exec-991aa45f-55c1-46d0-9bb4-1eb9ed29d794.png"
+    },
+    {
+      "angle": 270,
+      "file": "view-270.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 23920,
+      "source": "exec-e87cdea1-1049-4b3f-8bcb-8f59a7009a66.png"
+    },
+    {
+      "angle": 315,
+      "file": "view-315.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 42228,
+      "source": "exec-64571c38-7afd-4f76-96c8-b1fe2530c874.png"
+    }
+  ]
+}

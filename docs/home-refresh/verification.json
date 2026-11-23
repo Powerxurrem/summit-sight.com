@@ -1,0 +1,29 @@
+{
+  "scope": "Homepage hero image replacement, local only",
+  "asset": "public/media/about-material-study.webp",
+  "assetReuse": "Same existing About WebP; no new generation or duplicate website asset",
+  "filesChanged": [
+    "app/page.tsx",
+    "app/components/home-material-hero.module.css",
+    "docs/home-refresh/desktop-hero-crop.webp",
+    "docs/home-refresh/mobile-hero-crop.webp",
+    "docs/home-refresh/verification.json"
+  ],
+  "changes": [
+    "Updated image source, descriptive alt text and material-study caption",
+    "Preserved hero copy, CTAs, scroll anchor, image preload and downstream sections",
+    "Scoped overlay adjusted for text contrast; deliberate mobile focal point"
+  ],
+  "checks": {
+    "productionBuild": "PASS",
+    "fullLint": "PASS",
+    "homepageHTTPAndOptimizedImageDecode": "PASS",
+    "heroPreload": "PASS",
+    "copyAndLinks": "Preserved",
+    "diffWhitespace": "PASS"
+  },
+  "visualReview": "Decoded desktop1440x790 and mobile390x665 image crops inspected. These are media crops, not browser screenshots.",
+  "browser": "Live desktop/mobile browser rendering and text contrast remain unverified due to the current browser-host/Windows URL-policy limitation.",
+  "preservation": "Old fragrance hero asset preserved. No deployment.",
+  "preview": "http://localhost:3000/"
+}

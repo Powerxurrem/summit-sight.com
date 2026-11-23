@@ -17,6 +17,7 @@ export function MultiAngleShowcase({ study }: { study: MultiAngleStudy }) {
                 src={study.original.image.src}
                 alt={study.original.image.alt}
                 fill
+                draggable={false}
                 sizes="(max-width: 760px) 90vw, 29vw"
               />
             ) : (

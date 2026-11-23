@@ -1,0 +1,20 @@
+{
+  "method": "Built-in image_gen; one original abstract material study. Website derivative made with Sharp.",
+  "source": {
+    "generatedPath": "C:\\Users\\summi\\.codex\\generated_images\\01a209d6-92f5-7f62-b2b2-e5177f1526d5\\exec-3cbf6d6c-ef7d-4263-99c2-7627cfeced63.png",
+    "archivedPath": "docs/about-refresh/material-study-source.png",
+    "sha256": "6569934d85226dde661fa41f48394ff847e46eb0c27eda7bd2fc3bc9db86e4f4",
+    "bytes": 1945594,
+    "width": 1920,
+    "height": 819
+  },
+  "website": {
+    "path": "public/media/about-material-study.webp",
+    "sha256": "fda16406a75e8231f1c2305950a39bbb3edf98e7f6a0807ece2553902129c2ba",
+    "bytes": 101232,
+    "width": 1920,
+    "height": 819
+  },
+  "caption": "Original AI-generated material study",
+  "preservation": "Existing skincare asset retained; no other source media overwritten."
+}
