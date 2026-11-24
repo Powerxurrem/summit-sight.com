@@ -1,0 +1,26 @@
+{
+  "release": "WEB-005: One scene, three worlds with coordinated looping",
+  "date": "2026-11-24",
+  "authorization": "User explicitly requested production publication after reviewing the showcase and requesting its looping adjustment: lets push that to prod.",
+  "repository": "https://github.com/Powerxurrem/summit-sight.com",
+  "productionBranch": "main",
+  "previousProductionCommit": "5747ea43b57602901e54fbed4c086e87b69b6b9d",
+  "productionDomain": "https://summit-sight.com",
+  "deploymentMethod": "Normal non-force push to existing main branch, using the existing Vercel GitHub integration; no new hosting project or domain changes",
+  "scope": [
+    "Add Virtual Stage after Ignition and A Universe Within on Home",
+    "Compare the matched Blender clay interval with three real WEB-MOTION-002 cinematic worlds",
+    "Keep clay and the selected world looping together after explicit Play",
+    "Retain shared pause, world selection, mobile source toggle and offscreen/reduced-motion handling",
+    "Publish four website-owned clips and four matching posters under public/media/virtual-stage"
+  ],
+  "validation": {
+    "productionBuild": "PASS including TypeScript and static routes",
+    "lint": "PASS",
+    "regressionTests": "31 passed including coordinated loops, stale end events and cancellation",
+    "localHttpAndMedia": "PASS all six routes, existing cinematic preservation, exact served hashes, decoded posters, byte ranges and client scripts",
+    "browserInteraction": "Not independently verified because browser access host was unavailable"
+  },
+  "deploymentVerification": "Check the Vercel status for the exact pushed SHA, then verify canonical-domain Home markup, client scripts, all four video/poster hashes and video byte ranges. These checks do not establish continuous browser playback or responsive interaction.",
+  "preservation": "Existing cinematic studies, Lena performance, all earlier public media, B/C source footage and production receipts are retained; no inference, new cloud resources or environment changes."
+}

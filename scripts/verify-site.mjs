@@ -47,6 +47,7 @@ for(const route of routes){const response=await fetch(`${base}${route}`);assert.
 for(const route of ["/vestaryn","/oddloop","/mazeloop","/driftline","/tiny-delve","/peak-stack"])assert.equal((await fetch(`${base}${route}`)).status,404);
 console.log("PASS all obsolete public routes return 404");
 function videoBudget(url) {
+  if (url.includes("/virtual-stage/")) return 3_500_000;
   if (url.endsWith("/universe-within-ping-pong-v1.mp4")) return 4_500_000;
   if (url === "/media/character-studies/lena-performance-v2.mp4") return 5_500_000;
   return url.includes("/cinematic-studies/") ? 2_000_000 : 1_500_000;

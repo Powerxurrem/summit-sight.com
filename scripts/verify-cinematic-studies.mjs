@@ -18,7 +18,9 @@ for (const route of ["/", "/work"]) {
   const allVideos = html.match(/<video\b[^>]*>/g) || [];
   const videos = allVideos.filter(video => video.includes('/media/cinematic-studies/'));
   const lena = allVideos.filter(video => video.includes('/media/character-studies/lena-performance-v2.mp4'));
-  assert.equal(allVideos.length, 2 + lena.length);
+  const stage = allVideos.filter(video => video.includes('/media/virtual-stage/'));
+  assert.equal(stage.length, route === "/" ? 2 : 0, "Virtual Stage comparison is on Home");
+  assert.equal(allVideos.length, 2 + lena.length + stage.length);
   assert.equal(lena.length, route === "/work" ? 1 : 0, "Lena is visible on Work only");
   if (lena.length) {
     assert.doesNotMatch(lena[0], /\scontrols=/);

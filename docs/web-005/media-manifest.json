@@ -1,0 +1,470 @@
+{
+  "mission": "WEB-005",
+  "sourceDirectory": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1",
+  "receipts": [
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/technical-finishing.json",
+      "sha256": "d71905f3cccbf882807f9cc2fbe2ea946b5e15df06f9867ce9837e48e349b887"
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/final-manifest.json",
+      "sha256": "dacaa3ca544d769405bcfa039e6c9671fbd9d12b3d3d011655f9f31792c681e7"
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/source/shared-interval.json",
+      "sha256": "ab101297a2c1c9b68b4544e0c0c9cfcc4e2376c4a1f0f493ee64ffcb45103df5"
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/source/source-preservation.json",
+      "sha256": "6acca09cdad79ecf1a2468c58a0b9748977bcf36ac31279db9f4cbc76f4ff75b"
+    }
+  ],
+  "originalClay": {
+    "role": "primary_clay_motion",
+    "original": "C:\\Users\\summi\\Desktop\\projects\\cinema-lab-stage\\stage-output\\vs016a-clay-002\\review\\impossible-gallery-clay.mp4",
+    "copy": "inputs\\web-motion-002\\impossible-gallery-clay.mp4",
+    "bytes": 4858471,
+    "sha256": "0fda85a8b3eb377e3705a7eff157cdaad602f48e383c029c58d420b14cd7362f",
+    "full_decode": true,
+    "stagedAbsolutePath": "C:/Users/summi/Desktop/projects/cinema-lab-b/inputs/web-motion-002/impossible-gallery-clay.mp4",
+    "originalAndStagedHashesVerified": true
+  },
+  "timing": {
+    "sourceIndicesHalfOpen": [
+      71,
+      192
+    ],
+    "sourceFramesOneBasedInclusive": [
+      72,
+      192
+    ],
+    "sourceSecondsHalfOpen": [
+      2.9583333333333335,
+      8
+    ],
+    "frames": 121,
+    "fps": "24/1",
+    "durationSeconds": 5.041666666666667,
+    "websiteTimeToOriginalSeconds": "t + 71/24 for all four website clips; all clips start at the same shared interval",
+    "limitation": "Common timestamps do not establish exact generated geometry or frame-locked browser rendering."
+  },
+  "assets": [
+    {
+      "id": "clay",
+      "source": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/source/shared-clay-interval.mp4",
+        "bytes": 2935006,
+        "sha256": "4328f08bdd3402f6cb5fe608bc5e62e94060cbe54034cac499dffe941525518b"
+      },
+      "destination": "public/media/virtual-stage/clay.mp4",
+      "poster": "public/media/virtual-stage/clay-poster.webp",
+      "operation": "Scale existing 1920x1080 trimmed clay to 1280x720; H264/yuv420p CRF21 faststart; all 121 frames/24fps retained",
+      "derivationArgv": [
+        "-v",
+        "error",
+        "-xerror",
+        "-n",
+        "-i",
+        "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/source/shared-clay-interval.mp4",
+        "-vf",
+        "scale=1280:720:flags=lanczos,setsar=1",
+        "-frames:v",
+        "121",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "21",
+        "-preset",
+        "slow",
+        "-pix_fmt",
+        "yuv420p",
+        "-movflags",
+        "+faststart",
+        "public/media/virtual-stage/clay.mp4"
+      ],
+      "website": {
+        "bytes": 905103,
+        "sha256": "0a18aee4da0c1bf3e123b3680f02b718676f0ad7ae58057ac9beeadf9996616a",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "121"
+            }
+          ],
+          "format": {
+            "duration": "5.041667",
+            "size": "905103",
+            "bit_rate": "1436196"
+          }
+        },
+        "fullDecode": true,
+        "all121TimestampsVerified": true
+      },
+      "posterMetadata": {
+        "bytes": 38578,
+        "sha256": "4c23d92083b59884ec343c9c91ac2f4f6821a4ddd8a8adf0ba417e8c6d1c349c",
+        "sourceFrame": 60,
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": "drowned-cathedral",
+      "source": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-drowned-cathedral-web.mp4",
+        "bytes": 2645703,
+        "sha256": "5a4f7da493a6c2e6a0c74b9b00cb28a18e6821b83f3cf061d17b337d3f80dc5d"
+      },
+      "destination": "public/media/virtual-stage/drowned-cathedral.mp4",
+      "poster": "public/media/virtual-stage/drowned-cathedral-poster.webp",
+      "posterSource": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-drowned-cathedral-poster.png",
+        "bytes": 2322509,
+        "sha256": "b10dd28180c8dc2bbfd91158c9f3c1ef8e78f607f935102c294eb2afb8b82d6a"
+      },
+      "operation": "Web MP4 copied byte-for-byte; supplied master frame 60 PNG resized to WebP",
+      "website": {
+        "bytes": 2645703,
+        "sha256": "5a4f7da493a6c2e6a0c74b9b00cb28a18e6821b83f3cf061d17b337d3f80dc5d",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "121"
+            }
+          ],
+          "format": {
+            "duration": "5.041667",
+            "size": "2645703",
+            "bit_rate": "4198140"
+          }
+        },
+        "fullDecode": true,
+        "all121TimestampsVerified": true
+      },
+      "posterMetadata": {
+        "bytes": 135086,
+        "sha256": "8fe738f3ec4d52cd6a166f86718a71bcb9619e15e9233615528af8913c4f8017",
+        "sourceFrame": 60,
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": "forgotten-sanctuary",
+      "source": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-forgotten-sanctuary-web.mp4",
+        "bytes": 3446266,
+        "sha256": "f70fb558bd06df75a668b34970c7af4d1e73716a8b16ab1fafcbe9726c6bdb9d"
+      },
+      "destination": "public/media/virtual-stage/forgotten-sanctuary.mp4",
+      "poster": "public/media/virtual-stage/forgotten-sanctuary-poster.webp",
+      "posterSource": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-forgotten-sanctuary-poster.png",
+        "bytes": 2638012,
+        "sha256": "b3469ad510fa89fc847863e9c91f0ddcfe67f38c437906dc0474e127f4a41308"
+      },
+      "operation": "Web MP4 copied byte-for-byte; supplied master frame 60 PNG resized to WebP",
+      "website": {
+        "bytes": 3446266,
+        "sha256": "f70fb558bd06df75a668b34970c7af4d1e73716a8b16ab1fafcbe9726c6bdb9d",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "121"
+            }
+          ],
+          "format": {
+            "duration": "5.041667",
+            "size": "3446266",
+            "bit_rate": "5468454"
+          }
+        },
+        "fullDecode": true,
+        "all121TimestampsVerified": true
+      },
+      "posterMetadata": {
+        "bytes": 180882,
+        "sha256": "789c53e992749732e292b38c3e1ca626511b38e449a988fc69c7de81857c651f",
+        "sourceFrame": 60,
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": "singularity-engine",
+      "source": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-singularity-engine-web.mp4",
+        "bytes": 1782009,
+        "sha256": "71ba47c749c4fc999a9fe9f0588791f4765ce181e5f07c01e745777da2976c24"
+      },
+      "destination": "public/media/virtual-stage/singularity-engine.mp4",
+      "poster": "public/media/virtual-stage/singularity-engine-poster.webp",
+      "posterSource": {
+        "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-singularity-engine-poster.png",
+        "bytes": 1554774,
+        "sha256": "0bee0c9b1cf2f9e0ea52cbc08e37277505aa3ed64c202ab67c54b08035097cd2"
+      },
+      "operation": "Web MP4 copied byte-for-byte; supplied master frame 60 PNG resized to WebP",
+      "website": {
+        "bytes": 1782009,
+        "sha256": "71ba47c749c4fc999a9fe9f0588791f4765ce181e5f07c01e745777da2976c24",
+        "technical": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720,
+              "pix_fmt": "yuv420p",
+              "r_frame_rate": "24/1",
+              "nb_frames": "121"
+            }
+          ],
+          "format": {
+            "duration": "5.041667",
+            "size": "1782009",
+            "bit_rate": "2827650"
+          }
+        },
+        "fullDecode": true,
+        "all121TimestampsVerified": true
+      },
+      "posterMetadata": {
+        "bytes": 82302,
+        "sha256": "adaa850b13ebee6bce49386889eafb07dec5cc5fb172ab66ab36cf6ef02276a8",
+        "sourceFrame": 60,
+        "width": 1280,
+        "height": 720
+      }
+    }
+  ],
+  "inspectedProductionVideos": [
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/source/shared-clay-interval.mp4",
+      "bytes": 2935006,
+      "sha256": "4328f08bdd3402f6cb5fe608bc5e62e94060cbe54034cac499dffe941525518b",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "2935006",
+          "bit_rate": "4657199"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-drowned-cathedral-master.mp4",
+      "bytes": 12567640,
+      "sha256": "091c53d57429c1ef00347cdb50e1d019fd05b2c21c8fa9ee5216e9dea1fc8d43",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "12567640",
+          "bit_rate": "19942039"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-drowned-cathedral-web.mp4",
+      "bytes": 2645703,
+      "sha256": "5a4f7da493a6c2e6a0c74b9b00cb28a18e6821b83f3cf061d17b337d3f80dc5d",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "2645703",
+          "bit_rate": "4198140"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-forgotten-sanctuary-master.mp4",
+      "bytes": 14673068,
+      "sha256": "072b562e6346ab7beeb9fc5b2bc85746c20230f1f5f2937674796e81410f828c",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "14673068",
+          "bit_rate": "23282883"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-forgotten-sanctuary-web.mp4",
+      "bytes": 3446266,
+      "sha256": "f70fb558bd06df75a668b34970c7af4d1e73716a8b16ab1fafcbe9726c6bdb9d",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "3446266",
+          "bit_rate": "5468454"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-singularity-engine-master.mp4",
+      "bytes": 8342367,
+      "sha256": "fdb0a119a5010f776f9966b42b67df46bb9f2433ec35eff8445e2632c2f9ee9e",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "8342367",
+          "bit_rate": "13237474"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-singularity-engine-web.mp4",
+      "bytes": 1782009,
+      "sha256": "71ba47c749c4fc999a9fe9f0588791f4765ce181e5f07c01e745777da2976c24",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "1782009",
+          "bit_rate": "2827650"
+        }
+      }
+    },
+    {
+      "path": "C:/Users/summi/Desktop/projects/cinema-lab-b/.workspace-b/web-motion-002/finished-v1/impossible-gallery-clay-three-worlds-comparison.mp4",
+      "bytes": 8650307,
+      "sha256": "723310127ac70bf9703c3f96162ff85ae53baea0d59c855556931ec761e6ddc0",
+      "technical": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "8650307",
+          "bit_rate": "13726106"
+        }
+      }
+    }
+  ]
+}

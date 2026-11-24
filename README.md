@@ -59,6 +59,19 @@ If direct delivery is required later, connect a verified endpoint and implement 
 
 ## Checks
 
+The Home page's Virtual Stage showcase follows the existing cinematic studies at `/#virtual-stage`. It uses the real WEB-MOTION-002 clips, a shared play/pause control and three world selections. Desktop pairs the original clay interval with the selected result; mobile features the result with a **Compare original** toggle. Playback starts only on request, loops both clips together, and pauses offscreen, when the tab is hidden or when reduced motion is requested. Only clay and the selected world are loaded after Play. See [WEB-005 delivery and exact source paths](docs/web-005/README.md) and the [media manifest](docs/web-005/media-manifest.json).
+
+Additional checks for this showcase:
+
+```powershell
+node --test scripts/comparison-player.test.mjs
+$env:PREVIEW_URL='http://localhost:3101'
+node scripts/verify-virtual-stage.mjs
+node scripts/verify-cinematic-studies.mjs
+```
+
+`scripts/prepare-virtual-stage.mjs` reads the delivered B files and receipts without changing them. It copies the existing world web clips, creates an optimized clay copy and converts the supplied frame-60 posters to WebP. All four website clips retain 121 frames at 24 fps. New media is owned by the website under `public/media/virtual-stage/`. The preparation script refuses to overwrite different existing media.
+
 ```powershell
 npm.cmd run lint
 npm.cmd run build
@@ -72,4 +85,4 @@ See [docs/verification.md](docs/verification.md) for this delivery's verificatio
 
 ## Deployment
 
-No production deployment or merge is authorized by this rebuild. Review the dedicated rebuild branch and perform browser QA before HQ approves production deployment. Existing domain, Vercel connection, environment configuration and remote are unchanged.
+Production deploys from `main` through the existing GitHub/Vercel connection. The user explicitly authorized publishing WEB-005, including the coordinated looping adjustment, on 24 November 2026. See [the release record](docs/releases/2026-11-24.json). Existing domain, Vercel connection, environment configuration and remote are retained. Automated browser interaction remains unverified; build, regression and HTTP/media delivery checks are recorded separately.

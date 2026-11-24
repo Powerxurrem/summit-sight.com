@@ -1,0 +1,37 @@
+{
+  "mission": "WEB-005",
+  "date": "2026-11-24",
+  "scope": "Validated local WEB-005 release candidate; subsequent production publication explicitly authorized by user",
+  "presentation": "Individual clay/selected-world comparison with shared playback control",
+  "productionBuild": "PASS including TypeScript and static route generation",
+  "lint": "PASS",
+  "regressionTests": { "passed": 31, "newComparisonLifecycleTests": 13, "method": "Node tests with mocked media events; not a browser interaction test" },
+  "loopingAdjustment": "Clay and selected world restart together after each ending; repeated loops, stale end events and cancellation tested. Build and lint passed. Live browser loop boundary remains unverified.",
+  "media": {
+    "productionVideosProbed": 8,
+    "websiteVideosFullyDecoded": 4,
+    "websiteFramesPerClip": 121,
+    "fps": "24/1",
+    "allWebsiteFrameTimestampsVerified": true,
+    "originalAndStagedClayHashesMatchReceipt": true,
+    "copiedWorldWebHashesMatchReceipts": true,
+    "servedVideoAndPosterHashesMatchManifest": true,
+    "fastStartAndByteRangeDelivery": "PASS"
+  },
+  "productionHttpPreview": {
+    "origin": "http://localhost:3101",
+    "verificationScripts": ["scripts/verify-virtual-stage.mjs", "scripts/verify-cinematic-studies.mjs", "scripts/verify-site.mjs"],
+    "result": "PASS all scripts against final production build",
+    "existingCinematicStudies": "PASS content, media hashes, controls, scripts and placement preserved"
+  },
+  "browser": {
+    "inventoryResult": "The browser access host is unavailable",
+    "renderedDesktopMobile": "NOT VERIFIED",
+    "actualPlaybackAndSelection": "NOT VERIFIED",
+    "networkLoadingBehavior": "NOT VERIFIED in browser; initial source-free markup and controller deferral tested",
+    "browserConsole": "NOT VERIFIED",
+    "reducedMotionEmulation": "NOT VERIFIED; controller event handling tested"
+  },
+  "preservation": "B/C media and receipts read only; no inference, cloud resources, dependencies or prior media replacement. Production publication is covered by docs/releases/2026-11-24.json.",
+  "remainingLimit": "Matching source intervals and timestamps do not prove exact generated geometry, frame-locked dual-decoder playback, continuous temporal quality or creative approval."
+}
